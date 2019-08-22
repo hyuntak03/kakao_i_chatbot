@@ -12,9 +12,6 @@ function findn(str) {
     }
     var prevnum = -1;
     for (var i = 0; i < str.length; i++) {
-        //console.log('word:'+str.slice(i,i+1));
-        //console.log('isnum:'+isn(str.slice(i,i+1)));
-        //console.log('prevnum:'+prevnum);
         if (!isNaN(isn(str.slice(i, i + 1))) && prevnum != -1) {
             prevnum = 10 * prevnum + isn(str.slice(i, i + 1));
         }
@@ -50,9 +47,6 @@ function findnarr(str) {
     }
     var prevnum = -1;
     for (var i = 0; i < str.length; i++) {
-        //console.log('word:'+str.slice(i,i+1));
-        //console.log('isnum:'+isn(str.slice(i,i+1)));
-        //console.log('prevnum:'+prevnum);
         if (!isNaN(isn(str.slice(i, i + 1))) && prevnum != -1) {
             prevnum = 10 * prevnum + isn(str.slice(i, i + 1));
         }
@@ -88,54 +82,6 @@ var isEmpty = function (value) {
         return false
     }
 };
-// function commandtxt(msgtxt) {
-//     if (msgtxt.slice(0, 12) == '/console_log') {
-//         if (msgtxt.length <= 13) {
-//             return 'the command needs a string \n(ERR.COMTOOSHORT)';
-//         }
-//         return msgtxt.slice(13, msgtxt.length - 1);
-//     }
-//     else if (msgtxt == '/timeraw') {
-//         return dt.toString();
-//     }
-//     else if (msgtxt == '/help') {
-//         return 'Output Message \n/console_log(string) \nGet server time \n/timeraw \nRead/Write/Reset server notepad \n/notepad_read \n/notepad_write(string) \n/notepad_reset(password)';
-//     }
-//     else if (msgtxt == '/notepad_read') {
-//         return fs.readFileSync('notepadcmd.txt', 'utf8');
-//     }
-//     else if (msgtxt.slice(0, 14) == '/notepad_write') {
-//         if (msgtxt.length <= 15) {
-//             return 'the command needs a string \n(ERR.COMTOOSHORT)';
-//         }
-//         var writetxt = fs.readFileSync('notepadcmd.txt', 'utf8') + ' \n' + msgtxt.slice(15, msgtxt.length - 1);
-//         fs.writeFileSync('notepadcmd.txt', writetxt);
-//         return 'string ' + msgtxt.slice(15, msgtxt.length - 1) + ' was written!';
-//     }
-//     else if (msgtxt.slice(0, 14) == '/notepad_reset') {
-//         if (msgtxt.length <= 15) {
-//             return 'the command needs a password \n(ERR.COMTOOSHORT2)';
-//         }
-//         if (msgtxt.slice(15, 19) != '0628') {
-//             return 'the password is incorrect \n(ERR.WRONGPD)';
-//         }
-//         fs.writeFileSync('notepadcmd.txt', 'Hello Kajun');
-//         return 'everything erased on the notepad';
-//     }
-//     else if (msgtxt.slice(0, 10) == '/translate') {
-//         if (msgtxt.length <= 11) {
-//             return 'the command needs a string \n(ERR.COMTOOSHORT)';
-//         }
-//         return 'sorry...';
-//     }
-//     else if (msgtxt == '/ments_read') {
-//         return '/ments_read'
-//     }
-//     else {
-//         return 'the command ' + msgtxt + ' does not exist.';
-//     }
-// }
-
 function detectword(stringmsg) {
     stringmsg = stringmsg.replace(/밥/g, '급식')
     if (stringmsg.charAt(0) == '/') {
@@ -274,18 +220,6 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('게임')) {
         return '게임'
     }
-    // else if ((stringmsg.includes('4') || stringmsg.includes('사')) && stringmsg.includes('주사위')) {
-    //     return '사면체 주사위'
-    // }
-    // else if ((stringmsg.includes('100') || stringmsg.includes('백')) && stringmsg.includes('주사위')) {
-    //     return '일백면 주사위'
-    // }
-    // else if ((stringmsg.includes('맞추기') || stringmsg.includes('게임')) && stringmsg.includes('주사위')) {
-    //     return '주사위 게임'
-    // }
-    // else if (stringmsg.includes('4일') && ('급식')) {
-    //     return '4일후 급식'
-    // }
     else if (stringmsg.includes('하면 ') && (stringmsg.includes('이라고') || stringmsg.includes('라고') || stringmsg.includes('이라') || stringmsg.includes('라'))) {
         return 'addnewment//';
     }
@@ -398,8 +332,6 @@ reactword = function (keymsg, msg, callback) {
         case 'time-table_info':
             iscallback = 1;
             var class_day_info = msg;//출력 예시:1-1반 월요일
-            // var ngrade = class_day_info.slice(0, 1)
-            // var nclass = class_day_info.slice(2, 3)
             var grade_class = findnarr(msg)
             var ngrade = findnarr(msg)[0]
             var nclass = findnarr(msg)[1]
@@ -430,8 +362,6 @@ reactword = function (keymsg, msg, callback) {
                     return timetable.getTimetable()
                 })
                 .then(result => {
-                    //answer = result[ngrade][nclass][day_num]
-                    //console.log(result[ngrade][nclass][day_num])
                     data_type = result[ngrade][nclass][day_num];
                     last_type = ngrade + '학년 ' + nclass + '반 ' + '시간표(' + day + '요일' + ')\n\n';
                     for (var i = 0; i < data_type.length; i++) {
@@ -1220,127 +1150,6 @@ reactword = function (keymsg, msg, callback) {
             buttons = ['메뉴', '말 추가하기']
             buttoncore = ['메뉴', '말 추가하기']
             break;
-        /*
-        case '번역':
-            //네이버로 번역하기 위해 전송(post)
-            request.post(optionskotoen, function (error, response, body) {
-                //번역이 성공하였다면.
-                if (!error && response.statusCode == 200) {
-                    //json 파싱
-                    var objBody = JSON.parse(response.body);
-                    var translatedText = objBody.message.result.translatedText;
-                    //번역된 메시지
-                    console.log('한>영 번역:'+objBody.message.result.translatedText);
-                    let massage = {
-                        "message": {
-                            "text": objBody.message.result.translatedText
-                        },
-                    };
-                }
-                request.post(optionsentoko, function (error, response, body) {
-                    //번역이 성공하였다면.
-                    if (!error && response.statusCode == 200) {
-                        //json 파싱
-                        var objBody2 = JSON.parse(response.body);
-                        var translatedText = objBody2.message.result.translatedText;
-                        //번역된 메시지
-                        console.log('영>한 번역:'+objBody2.message.result.translatedText);
-                        let massage = {
-                            "message": {
-                                "text": objBody2.message.result.translatedText
-                            },
-                        };
-                    }
-                    //번역된 스트링 받음+온점제거
-                    var transtext;
-                    var transerr=0;
-                    if(!error && response.statusCode == 200){
-                        transtext=objBody.message.result.translatedText;
-                    }
-                    else{
-                        transtext='ERROR_LIMITTAKEN';
-                        transerr=1;
-                    }
-                    var transtype='';
-                    if(transtext.charAt(transtext.length-1)=='.'){
-                        transtext=transtext.slice(0,transtext.length-1);
-                    }
-                    //console.log('transtext:'+transtext);
-                    //스트링을 배열로 변환(쪼개는 기준은 스페이스)
-                    var transarr=transtext.split(' ');
-                    //console.log('transarr:'+transarr);
-                    //번역 관련 단어 제거
-                    for(var i=0;i<transarr.length;i++){
-                        //transarr[i]=transarr[i].toLowerCase();
-                        //문장부호 제거
-                        if(transarr[i].charAt(transarr[i].length-1)=='.'){
-                            transarr[i]=transarr[i].slice(0,transarr[i].length-1);
-                            transtype='.';
-                        }
-                        else if(transarr[i].charAt(transarr[i].length-1)=='!'){
-                            transarr[i]=transarr[i].slice(0,transarr[i].length-1);
-                            transtype='!';
-                        }
-                        else if(transarr[i].charAt(transarr[i].length-1)=='?'){
-                            transarr[i]=transarr[i].slice(0,transarr[i].length-1);
-                            transtype='?';
-                        }
-                        var fronti='';
-                        var backi='';
-                        if(i>0){
-                            fronti=transarr[i-1].toLowerCase();
-                        }
-                        if(i<transarr.length-1){
-                            backi=transarr[i+1].toLowerCase();
-                        }
-                        var transi=transarr[i].toLowerCase();
-                        //번역 앞뒤 조사/형용사 제거(예외사항 조사가 나오면 추가해야됨)
-                        if(transi=='translate' || transi=='translation' || transi=='translated' || transi=='translating'){
-                            if(i>0 && (fronti=='a' || fronti=='the' || fronti=='please')){
-                                transarr[i-1]='';
-                            }
-                            if(i<transarr.length-1 && (backi=='it' || backi=='the' || backi=='of' || backi=='your')){
-                                transarr[i+1]='';
-                            }
-                            transarr[i]='';
-                            //번역을 번역해 등 번역이 2개 이상 있을수 있으니 브레이크
-                            break;
-                        }
-                        //console.log('1stagei='+i);
-                    }
-                    //배열을 하나의 스트링으로(업뎃함)
-                    var transresult='';
-                    for(var i=0;i<transarr.length;i++){
-                        transresult=transresult+transarr[i];
-                        if(transarr[i]!=''){
-                            transresult=transresult+' ';
-                        }
-                        //console.log('2stagei='+i);
-                    }
-                    //임시방편 스페이스 제거(업뎃필요?)
-                    if(transresult.charAt(transresult.length-1)==' '){
-                        transresult=transresult.slice(0,transresult.length-1);
-                    }
-                    //만약을 위해서 맨앞글자 대문자화
-                    transresult=transresult.charAt(0).toUpperCase()+transresult.slice(1,transresult.length);
-                    //결과가 없으면 번역을 할 수 없다.
-                    if(transresult==''){
-                        transresult='무엇을 번역하라고요?';
-                    }
-                    //카톡에 메시지(transresult) 전송
-                    if(transerr==1){
-                        transresult='오늘 번역 한도를 넘은것 같아요... 내일 시도해보세요';
-                    }
-                    console.log('transresult:'+'_'+transresult+'_');
-                    res.json({
-                        'message': {
-                            'text': transresult+transtype
-                        }
-                    })
-                });
-            });
-            break;
-        */
         case '개발자에게 문의하기':
             answer = '오픈채팅방:https://open.kakao.com/o/spCvvJ0 \n\n건의사항이나 문제점은 위 오픈채팅방으로 통해서 알려주세요!'
             buttons = ['메뉴 보기', '급식 정보 보기']
@@ -1390,10 +1199,6 @@ var request = require('request');
 const School = require('node-school-kr');
 const school = new School();
 school.init(School.Type.HIGH, School.Region.GYEONGGI, 'J100000590');//(중앙고는 J100000590)
-//var http = require('http');
-//var client_id = 'fyCgGLHdaNE6ldHOMw9R';
-//var client_secret = 'brBXDlraKy';
-//var api_url = 'https://openapi.naver.com/v1/papago/n2mt';
 var fs = require('fs');
 var cheerio = require('cheerio');
 
@@ -1452,69 +1257,6 @@ apiRouter.post('/switch', function (req, res) {
 
     var keyword = detectword(msg);
     console.log(msg);
-    //console.log('키워드:' + keyword);
-
-    //var reaction=reactword(keyword,msg);
-    // reactword(keyword, msg, function (reaction) {
-    //     var answer = reaction[0];
-    //     var buttons = reaction[1];
-    //     var link = reaction[2];
-    //     var buttoncore = reaction[3];
-    //     var addans = reaction[4];
-    //     console.log('answer:'+answer);
-
-    //     var outputres = [];
-    //     const tmpout1 = {
-    //         simpleText: {
-    //             text: answer
-    //         }
-    //     };
-    //     outputres.push(tmpout1);
-    //     if (addans != '') {
-    //         const tmpout2 = {
-    //             simpleText: {
-    //                 text: addans
-    //             }
-    //         };
-    //         outputres.push(tmpout2);
-    //     }
-
-    //     if (buttons.length == 0 && link == '') {
-    //         const responseBody = {
-    //             version: "2.0",
-    //             template: {
-    //                 outputs: outputres
-    //             }
-    //         };
-    //         res.status(200).send(responseBody);
-    //     }
-    //     else if (link == '') {
-    //         var buttonres = [];
-    //         for (var i = 0; i < buttons.length; i++) {
-    //             console.log(i + ' ' + buttons[i] + ' ' + buttoncore[i]);
-    //             const tmpobj = {
-    //                 label: buttons[i],
-    //                 action: 'message',
-    //                 messageText: buttoncore[i]
-    //             }
-    //             //console.log('\n'+tmpobj+'\n');
-    //             buttonres.push(tmpobj);
-    //         }
-    //         console.log('\n\nBUTRES\n' + buttonres);
-    //         const responseBody = {
-    //             version: "2.0",
-    //             template: {
-    //                 outputs: outputres,
-    //                 quickReplies: buttonres
-    //             }
-    //         };
-    //         res.status(200).send(responseBody);
-    //     }
-    // })
-
-
-
-
     reactword(keyword, msg, reaction => {
         var answer = reaction[0];
         var buttons = reaction[1];
