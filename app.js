@@ -264,10 +264,10 @@ reactword = function (keymsg, msg, callback) {
     var returnstatement = '돌아왔습니다!';
     var addnewmentstatement = '[말 추가하기] \n\n자신이 원하는 대답을 들을수 있도록 할 수 있어요! \n\n~~ 라 하면 ~~ 라고 해 \n와 같이 말해주세요!';
 
-    var mentsread = fs.readFileSync('/else/ments.txt', 'utf8');
+    var mentsread = fs.readFileSync('ments.txt', 'utf8');
     var mentsarr = mentsread.split('\n');
     //console.log('커스텀 멘트목록:' + mentsarr);
-    var bad_words = fs.readFileSync('/else/bad_words.txt', 'utf8')
+    var bad_words = fs.readFileSync('bad_words.txt', 'utf8')
     var detect = bad_words.toString().split(' ');
     for (var i = 0; i < detect.length; i++) {
         if (msg.includes(detect[i])) {
@@ -290,7 +290,7 @@ reactword = function (keymsg, msg, callback) {
             answer = 'command_list\n\nments_read\nments_del'
             break;
         case 'ments_read':
-            var ments = fs.readFileSync('/else/ments.txt', 'utf8')
+            var ments = fs.readFileSync('ments.txt', 'utf8')
             console.log(ments.toString())
             answer = ments;
             break;
@@ -299,7 +299,7 @@ reactword = function (keymsg, msg, callback) {
             break;
         case 'ments_del_psw':
             answer = '모든 멘트들이 삭제되었습니다'
-            fs.writeFileSync('/else/ments.txt', '', 'utf8')
+            fs.writeFileSync('ments.txt', '', 'utf8')
             break;
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
@@ -1136,8 +1136,8 @@ reactword = function (keymsg, msg, callback) {
                 console.log('mentoutput=_' + mentoutput + '_');
                 mentres = mentinput + ' 라고 말하시면 ' + mentoutput + ' 라고 답할께요!';
                 if (mentsarr.length <= 5000) {
-                    var mentwrite = fs.readFileSync('/else/ments.txt', 'utf8') + ' \n' + mentinput + '=' + mentoutput;
-                    fs.writeFileSync('/else/ments.txt', mentwrite);
+                    var mentwrite = fs.readFileSync('ments.txt', 'utf8') + ' \n' + mentinput + '=' + mentoutput;
+                    fs.writeFileSync('ments.txt', mentwrite);
                 }
                 else {
                     mentres = '대답 목록이 이미 꽉 차버렸어요...'
