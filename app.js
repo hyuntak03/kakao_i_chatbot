@@ -1315,8 +1315,8 @@ apiRouter.post('/switch', function (req, res) {
     });
 });
 
-
-app.listen(9000, function () {
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
     console.log('서버 실행중...');
 });
 
