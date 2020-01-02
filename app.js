@@ -244,6 +244,8 @@ function detectword(stringmsg) {
         return 'special case'
     } else if (stringmsg == '0209') {
         return 'ments_del_psw'
+    } else if (stringmsg.includes('-') && stringmsg.includes('반')){
+        return '완료'
     }
     else {
         return stringmsg;
@@ -269,6 +271,8 @@ reactword = function (keymsg, msg, callback) {
     //console.log('커스텀 멘트목록:' + mentsarr);
     var bad_words = fs.readFileSync('bad_words.txt', 'utf8')
     var detect = bad_words.toString().split(' ');
+
+    var id;
     for (var i = 0; i < detect.length; i++) {
         if (msg.includes(detect[i])) {
             console.log('욕')
@@ -293,6 +297,8 @@ reactword = function (keymsg, msg, callback) {
             break; 
         case '완료':
             answer = '학생정보 설정이 완료되었습니다.'
+            var student_info = id + msg
+            fs.writeFileSync('student_info.txt', student_info);
             break;
         case '성적':
             answer = '학년을 선택해주세요'
@@ -1275,12 +1281,13 @@ apiRouter.post('/switch', function (req, res) {
     var userlang = req.body.userRequest.lang;
     var keyword = detectword(msg);
     console.log(msg);
-    if(msg.includes('-') && msg.includes('반')){
-        //answer = '학년 설정이 완료되었습니다'
-        var student_info = userid + msg
-        fs.writeFileSync('student_info.txt', student_info);
-        return '완료'
-    }
+    userid = id;
+    // if(msg.includes('-') && msg.includes('반')){
+    //     //answer = '학년 설정이 완료되었습니다'
+    //     var student_info = userid + msg
+    //     fs.writeFileSync('student_info.txt', student_info);
+    //     return '완료'
+    // }
 
     reactword(keyword, msg, reaction => {
         var answer = reaction[0];
