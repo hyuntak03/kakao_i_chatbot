@@ -291,6 +291,9 @@ reactword = function (keymsg, msg, callback) {
             buttons = ['1학년', '2학년', '3학년']
             buttoncore = ['1학년', '2학년', '3학년']
             break; 
+        case '완료':
+            answer = '학생정보 설정이 완료되었습니다.'
+            break;
         case '성적':
             answer = '학년을 선택해주세요'
             buttons = ['1학년 등급','2학년 등급','3학년 등급']
@@ -1272,6 +1275,13 @@ apiRouter.post('/switch', function (req, res) {
     var userlang = req.body.userRequest.lang;
     var keyword = detectword(msg);
     console.log(msg);
+    if(msg.includes('-') && msg.includes('반')){
+        //answer = '학년 설정이 완료되었습니다'
+        var student_info = userid + msg
+        fs.writeFileSync('student_info.txt', student_info);
+        return '완료'
+    }
+
     reactword(keyword, msg, reaction => {
         var answer = reaction[0];
         var buttons = reaction[1];
@@ -1328,11 +1338,6 @@ apiRouter.post('/switch', function (req, res) {
             res.status(200).send(responseBody);
         }
     });
-    if(msg.includes('-') && msg.includes('반')){
-        answer = '학년 설정이 완료되었습니다'
-        var student_info = userid + msg
-        fs.writeFileSync('student_info.txt', student_info);
-    }
 });
 
 var port = process.env.PORT || 3000;
