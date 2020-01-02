@@ -272,9 +272,9 @@ reactword = function (keymsg, msg, callback) {
     var detect = bad_words.toString().split(' ');
 
     if(msg.includes('-') && msg.includes('반')){
-        answer = '학년 설정이 완료되었습니다'
         var student_info = id + msg
         fs.writeFileSync('student_info.txt', student_info);
+        answer = '학년 설정이 완료되었습니다'
         answerresult.push(answer);
         answerresult.push(buttons);
         answerresult.push(link);
