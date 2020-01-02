@@ -304,21 +304,6 @@ reactword = function (keymsg, msg, callback) {
             return;
         }
     }
-    if(msg == 'test'){
-        for (var i = 0; i < detect.length; i++) {
-            if (id.includes(detect[i])) {
-                answer = detect[i].toString()
-                var answerresult = [];
-                answerresult.push(answer);
-                answerresult.push(buttons);
-                answerresult.push(link);
-                answerresult.push(buttoncore);
-                answerresult.push(addans);
-                callback(answerresult);
-                return;
-            }
-        }
-    }
 
     switch (keymsg) {
         case '학생정보 설정':
