@@ -286,7 +286,7 @@ reactword = function (keymsg, msg, callback) {
         }
     }
     switch (keymsg) {
-        case '학년 설정':
+        case '학생정보 설정':
             answer = '학년을 선택해주세요'
             buttons = ['1학년', '2학년', '3학년']
             buttoncore = ['1학년', '2학년', '3학년']
