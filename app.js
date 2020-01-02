@@ -273,7 +273,7 @@ reactword = function (keymsg, msg, callback) {
 
     if(msg.includes('-') && msg.includes('반')){
         var student_info = id + msg
-        fs.writeFileSync('student_info.txt', student_info);
+        fs.writeFileSync('student_info.txt', + '-' + student_info + '\n' );
         answer = '학년 설정이 완료되었습니다'
         var answerresult = [];
         answerresult.push(answer);
@@ -343,11 +343,6 @@ reactword = function (keymsg, msg, callback) {
             break;
         case 'test':
             var test1 = fs.readFileSync('student_id.txt', 'utf8')
-            if(test1.includes(id)){ㅋ
-
-            }else if(
-                answer = '학생정보를 설정해주세요'
-            )
             break;
         case 'N학년':
             var grade = findn(msg);
