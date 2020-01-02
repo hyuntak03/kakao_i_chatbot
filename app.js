@@ -251,6 +251,7 @@ function detectword(stringmsg) {
 }
 const Timetable = require('comcigan-parser');
 const timetable = new Timetable();
+var id;
 
 reactword = function (keymsg, msg, callback) {
     var answer = '';
@@ -270,7 +271,12 @@ reactword = function (keymsg, msg, callback) {
     var bad_words = fs.readFileSync('bad_words.txt', 'utf8')
     var detect = bad_words.toString().split(' ');
 
-    var id;
+    if(msg.includes('-') && msg.includes('반')){
+        answer = '학년 설정이 완료되었습니다'
+        var student_info = id + msg
+        fs.writeFileSync('student_info.txt', student_info);
+    }
+
     for (var i = 0; i < detect.length; i++) {
         if (msg.includes(detect[i])) {
             console.log('욕')
@@ -1271,6 +1277,7 @@ apiRouter.post('/switch', function (req, res) {
     //console.log(req.body);
     var msg = req.body.userRequest.utterance;
     var userid = req.body.userRequest.user.id;
+    id = userid;
     var userlang = req.body.userRequest.lang;
     var keyword = detectword(msg);
     console.log(msg);
@@ -1332,11 +1339,11 @@ apiRouter.post('/switch', function (req, res) {
             res.status(200).send(responseBody);
         }
 
-        if(msg.includes('-') && msg.includes('반')){
-            answer = '학년 설정이 완료되었습니다'
-            var student_info = userid + msg
-            fs.writeFileSync('student_info.txt', student_info);
-        }
+        // if(msg.includes('-') && msg.includes('반')){
+        //     answer = '학년 설정이 완료되었습니다'
+        //     var student_info = userid + msg
+        //     fs.writeFileSync('student_info.txt', student_info);
+        // }
 
     });
 });
