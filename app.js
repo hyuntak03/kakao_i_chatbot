@@ -305,33 +305,33 @@ reactword = function (keymsg, msg, callback) {
         }
     }
 
-    // if(msg == 'test'){
-    //     for (var i = 0; i < detect_id.length; i++) {
-    //         if (msg.includes(detect_id[i])) {
-    //             var strArray = detect_id[i].split('-')
-    //             var result = strArray[1] + '-' + strArray[2]
-    //             answer = result
-    //             var answerresult = [];
-    //             answerresult.push(answer);
-    //             answerresult.push(buttons);
-    //             answerresult.push(link);
-    //             answerresult.push(buttoncore);
-    //             answerresult.push(addans);
-    //             callback(answerresult);
-    //             return;
-    //         }else {
-    //             answer = '학생 정보를 설정해주세요.'
-    //             var answerresult = [];
-    //             answerresult.push(answer);
-    //             answerresult.push(buttons);
-    //             answerresult.push(link);
-    //             answerresult.push(buttoncore);
-    //             answerresult.push(addans);
-    //             callback(answerresult);
-    //             return;
-    //         }
-    //     }
-    // }
+    if(msg == 'test'){
+        for (var i = 0; i < detect_id.length; i++) {
+            if (msg.includes(detect_id[i])) {
+                var strArray = detect_id[i].split('-')
+                var result = strArray[1] + '-' + strArray[2]
+                answer = result
+                var answerresult = [];
+                answerresult.push(answer);
+                answerresult.push(buttons);
+                answerresult.push(link);
+                answerresult.push(buttoncore);
+                answerresult.push(addans);
+                callback(answerresult);
+                return;
+            }else {
+                answer = '학생 정보를 설정해주세요.'
+                var answerresult = [];
+                answerresult.push(answer);
+                answerresult.push(buttons);
+                answerresult.push(link);
+                answerresult.push(buttoncore);
+                answerresult.push(addans);
+                callback(answerresult);
+                return;
+            }
+        }
+    }
 
     switch (keymsg) {
         case '학생정보 설정':
