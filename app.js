@@ -1277,12 +1277,11 @@ var a = add(1);
 apiRouter.post('/switch', function (req, res) {
     //console.log(req.body);
     var msg = req.body.userRequest.utterance;
-    //var userid = req.body.userRequest.user.id;
-    id = req.body.userRequest.user.id;
+    var userid = req.body.userRequest.user.id;
     var userlang = req.body.userRequest.lang;
     var keyword = detectword(msg);
     console.log(msg);
-    //userid = id;
+    id = userid.toString();
     // if(msg.includes('-') && msg.includes('반')){
     //     //answer = '학년 설정이 완료되었습니다'
     //     var student_info = userid + msg
