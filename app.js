@@ -271,6 +271,9 @@ reactword = function (keymsg, msg, callback) {
     var bad_words = fs.readFileSync('bad_words.txt', 'utf8')
     var detect = bad_words.toString().split(' ');
 
+    var student_info = fs.readFileSync('student_info.txt', 'utf8')
+    var detect_id = student_info.toString().split('\n')
+    
     if(msg.includes('-') && msg.includes('반')){
         var student_info = id + '-' + msg
         fs.writeFileSync('student_info.txt', student_info + '\n');
@@ -342,7 +345,11 @@ reactword = function (keymsg, msg, callback) {
             buttoncore = ['1학년', '2학년', '3학년']
             break;
         case 'test':
-            var test1 = fs.readFileSync('student_id.txt', 'utf8')
+            for (var i = 0; i < detect.length; i++) {
+                if (id.includes(detect[i])) {
+                    answer = detect[i].toString()
+                }
+            }
             break;
         case 'N학년':
             var grade = findn(msg);
