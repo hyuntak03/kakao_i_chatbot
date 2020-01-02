@@ -275,8 +275,8 @@ reactword = function (keymsg, msg, callback) {
     var detect_id = student_info.toString().split('\n')
     
     if(msg.includes('-') && msg.includes('반')){
-        var student_info = id + '-' + msg
-        fs.writeFileSync('student_info.txt', student_info + '\n');
+        var student_info = fs.readFileSync('student_id.txt', 'utf8') + '\n' + id + '-' + msg
+        fs.writeFileSync('student_info.txt', student_info);
         answer = '학년 설정이 완료되었습니다'
         var answerresult = [];
         answerresult.push(answer);
@@ -302,6 +302,26 @@ reactword = function (keymsg, msg, callback) {
             answerresult.push(addans);
             callback(answerresult);
             return;
+        }
+    }
+
+    if(msg == 'test'){
+        for (var i = 0; i < detect_id.length; i++) {
+            if (msg.includes(detect_id[i])) {
+                var strArray = detect_id[i].split('-')
+                var result = strArray[1] + '-' + strArray[2]
+                answer = result
+                var answerresult = [];
+                buttons = ['메뉴']
+                buttoncore = ['메뉴']
+                answerresult.push(answer);
+                answerresult.push(buttons);
+                answerresult.push(link);
+                answerresult.push(buttoncore);
+                answerresult.push(addans);
+                callback(answerresult);
+                return;
+            }
         }
     }
 
@@ -895,7 +915,7 @@ reactword = function (keymsg, msg, callback) {
             break;
         case '이름이 머냐':
         case '이름':
-            answer = '제 이름은 중앙고 통합 알리미에요!';
+            answer = '제 이름은 중앙고 챗봇!';
             buttons = ['메뉴']
             buttoncore = ['메뉴']
             break;
