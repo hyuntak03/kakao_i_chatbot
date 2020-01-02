@@ -1283,12 +1283,6 @@ apiRouter.post('/switch', function (req, res) {
         var addans = reaction[4];
         console.log('answer:' + answer);
 
-        if(msg.includes('-') && msg.includes('반')){
-            answer = '학년 설정이 완료되었습니다'
-            var student_info = userid + msg
-            fs.writeFileSync('student_info.txt', student_info);
-            return '완료'
-        }
 
         var outputres = [];
         const tmpout1 = {
@@ -1337,6 +1331,14 @@ apiRouter.post('/switch', function (req, res) {
             };
             res.status(200).send(responseBody);
         }
+
+        if(msg.includes('-') && msg.includes('반')){
+            answer = '학년 설정이 완료되었습니다'
+            var student_info = userid + msg
+            fs.writeFileSync('student_info.txt', student_info);
+            return '완료'
+        }
+        
     });
 });
 
