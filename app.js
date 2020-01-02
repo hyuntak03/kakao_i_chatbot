@@ -309,7 +309,7 @@ reactword = function (keymsg, msg, callback) {
         for (var i = 0; i < detect_id.length; i++) {
             if (msg.includes(detect_id[i])) {
                 var strArray = detect_id[i].toString().split('-')
-                var result = strArray[1] + '-' + strArray[2]
+                var result = strArray[1].toString() + '-' + strArray[2].toString()
                 answer = result
                 var answerresult = [];
                 answerresult.push(answer);
