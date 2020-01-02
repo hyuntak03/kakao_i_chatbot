@@ -275,7 +275,7 @@ reactword = function (keymsg, msg, callback) {
     var detect_id = student_info.toString().split('\n')
     
     if(msg.includes('-') && msg.includes('반')){
-        var student_info = fs.readFileSync('student_id.txt', 'utf8') + '\n' + id + '-' + msg
+        var student_info = fs.readFileSync('student_info.txt', 'utf8') + '\n' + id + '-' + msg
         fs.writeFileSync('student_info.txt', student_info);
         answer = '학년 설정이 완료되었습니다'
         var answerresult = [];
