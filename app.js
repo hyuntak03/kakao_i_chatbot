@@ -230,7 +230,7 @@ function detectword(stringmsg) {
         return 'time-table_info'
     }
     else if (stringmsg.includes('학년')) {
-        return 'N학년'
+        //return 'N학년'
     }
     else if (stringmsg.includes('-') && stringmsg.includes('반')) {
         return 'N-N'
@@ -286,6 +286,18 @@ reactword = function (keymsg, msg, callback) {
         }
     }
     switch (keymsg) {
+        case '학년 설정':
+            answer = '학년을 선택해주세요'
+            buttons = ['1학년', '2학년', '3학년']
+            buttoncore = ['1학년', '2학년', '3학년']
+            break; 
+        case '성적':
+            answer = '학년을 선택해주세요'
+            buttons = ['1학년 등급','2학년 등급','3학년 등급']
+            buttoncore = ['1학년 등급','2학년 등급','3학년 등급']
+            break;
+        case 'N학년 등급':
+           break; 
         case 'help':
             answer = 'command_list\n\nments_read\nments_del'
             break;
@@ -1254,7 +1266,19 @@ apiRouter.post('/switch', function (req, res) {
     var msg = req.body.userRequest.utterance;
     var userid = req.body.userRequest.user.id;
     var userlang = req.body.userRequest.lang;
-
+    if(msg == '1학년'){
+        answer = '학년 설정이 완료되었습니다'
+        var student_info = userid + msg
+        fs.writeFileSync('student_info.txt', student_info);
+    }else if(msg == '2학년'){
+        answer = '학년 설정이 완료되었습니다'
+        var student_info = userid + msg
+        fs.writeFileSync('student_info.txt', student_info);
+    }else if(msg == '3학년'){
+        answer = '학년 설정이 완료되었습니다'
+        var student_info = userid + msg
+        fs.writeFileSync('student_info.txt', student_info);
+    }
     var keyword = detectword(msg);
     console.log(msg);
     reactword(keyword, msg, reaction => {
