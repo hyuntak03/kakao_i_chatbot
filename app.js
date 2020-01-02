@@ -1336,9 +1336,8 @@ apiRouter.post('/switch', function (req, res) {
             answer = '학년 설정이 완료되었습니다'
             var student_info = userid + msg
             fs.writeFileSync('student_info.txt', student_info);
-            return '완료'
         }
-        
+
     });
 });
 
