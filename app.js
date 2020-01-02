@@ -1284,7 +1284,7 @@ apiRouter.post('/switch', function (req, res) {
         console.log('answer:' + answer);
 
         if(msg.includes('-') && msg.includes('반')){
-            //answer = '학년 설정이 완료되었습니다'
+            answer = '학년 설정이 완료되었습니다'
             var student_info = userid + msg
             fs.writeFileSync('student_info.txt', student_info);
             return '완료'
