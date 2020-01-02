@@ -230,7 +230,7 @@ function detectword(stringmsg) {
         return 'time-table_info'
     }
     else if (stringmsg.includes('학년')) {
-        //return 'N학년'
+        return 'N학년'
     }
     else if (stringmsg.includes('-') && stringmsg.includes('반')) {
         return 'N-N'
@@ -299,7 +299,7 @@ reactword = function (keymsg, msg, callback) {
         case 'N학년 등급':
            break; 
         case 'help':
-            answer = 'command_list\n\nments_read\nments_del'
+            answer = 'command_list\n\nments_read\nments_del\n\ninfo'
             break;
         case 'ments_read':
             var ments = fs.readFileSync('ments.txt', 'utf8')
@@ -312,6 +312,10 @@ reactword = function (keymsg, msg, callback) {
         case 'ments_del_psw':
             answer = '모든 멘트들이 삭제되었습니다'
             fs.writeFileSync('ments.txt', '', 'utf8')
+            break;
+        case 'info':
+            var info = fs.readFileSync('student_info.txt', 'utf8')
+            answer = info
             break;
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
@@ -1266,6 +1270,11 @@ apiRouter.post('/switch', function (req, res) {
     var msg = req.body.userRequest.utterance;
     var userid = req.body.userRequest.user.id;
     var userlang = req.body.userRequest.lang;
+    if(msg.includes('-') && msg.includes('반')){
+        answer = '학년 설정이 완료되었습니다'
+        var student_info = userid + msg
+        fs.writeFileSync('student_info.txt', student_info);
+    }
     // if(msg == '1학년'){
     //     answer = '학년 설정이 완료되었습니다'
     //     var student_info = userid + msg
