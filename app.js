@@ -307,7 +307,7 @@ reactword = function (keymsg, msg, callback) {
     if(msg == 'test'){
         for (var i = 0; i < detect.length; i++) {
             if (id.includes(detect[i])) {
-                answer = detect[i]
+                answer = detect[i].toString()
                 var answerresult = [];
                 answerresult.push(answer);
                 answerresult.push(buttons);
