@@ -304,6 +304,22 @@ reactword = function (keymsg, msg, callback) {
             return;
         }
     }
+    if(msg == 'test'){
+        for (var i = 0; i < detect.length; i++) {
+            if (id.includes(detect[i])) {
+                answer = detect[i]
+                var answerresult = [];
+                answerresult.push(answer);
+                answerresult.push(buttons);
+                answerresult.push(link);
+                answerresult.push(buttoncore);
+                answerresult.push(addans);
+                callback(answerresult);
+                return;
+            }
+        }
+    }
+
     switch (keymsg) {
         case '학생정보 설정':
             answer = '학년을 선택해주세요'
@@ -343,13 +359,6 @@ reactword = function (keymsg, msg, callback) {
             answer = '학년을 선택해주세요'
             buttons = ['1학년', '2학년', '3학년']
             buttoncore = ['1학년', '2학년', '3학년']
-            break;
-        case 'test':
-            for (var i = 0; i < detect.length; i++) {
-                if (id.includes(detect[i])) {
-                    answer = detect[i].toString()
-                }
-            }
             break;
         case 'N학년':
             var grade = findn(msg);
