@@ -312,8 +312,16 @@ reactword = function (keymsg, msg, callback) {
                 var result = strArray[1] + '-' + strArray[2]
                 answer = result
                 var answerresult = [];
-                buttons = ['메뉴']
-                buttoncore = ['메뉴']
+                answerresult.push(answer);
+                answerresult.push(buttons);
+                answerresult.push(link);
+                answerresult.push(buttoncore);
+                answerresult.push(addans);
+                callback(answerresult);
+                return;
+            }else {
+                answer = '학생 정보를 설정해주세요.'
+                var answerresult = [];
                 answerresult.push(answer);
                 answerresult.push(buttons);
                 answerresult.push(link);
