@@ -275,6 +275,12 @@ reactword = function (keymsg, msg, callback) {
         answer = '학년 설정이 완료되었습니다'
         var student_info = id + msg
         fs.writeFileSync('student_info.txt', student_info);
+        answerresult.push(answer);
+        answerresult.push(buttons);
+        answerresult.push(link);
+        answerresult.push(buttoncore);
+        answerresult.push(addans);
+        callback(answerresult);
         return;
     }
 
