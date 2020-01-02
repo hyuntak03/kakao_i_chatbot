@@ -275,6 +275,7 @@ reactword = function (keymsg, msg, callback) {
         var student_info = id + msg
         fs.writeFileSync('student_info.txt', student_info);
         answer = '학년 설정이 완료되었습니다'
+        var answerresult = [];
         answerresult.push(answer);
         answerresult.push(buttons);
         answerresult.push(link);
