@@ -341,6 +341,14 @@ reactword = function (keymsg, msg, callback) {
             buttons = ['1학년', '2학년', '3학년']
             buttoncore = ['1학년', '2학년', '3학년']
             break;
+        case 'test':
+            var test1 = fs.readFileSync('student_id.txt', 'utf8')
+            if(test1.includes(id)){ㅋ
+
+            }else if(
+                answer = '학생정보를 설정해주세요'
+            )
+            break;
         case 'N학년':
             var grade = findn(msg);
             answer = '반을 선택해주세요'
