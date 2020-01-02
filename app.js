@@ -232,9 +232,9 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('학년')) {
         return 'N학년'
     }
-    else if (stringmsg.includes('-') && stringmsg.includes('반')) {
-        return 'N-N'
-    }
+    //else if (stringmsg.includes('-') && stringmsg.includes('반')) {
+      //  return 'N-N'
+    //}
     else if (stringmsg.includes('시간표') && ('보기')) {
         return '시간표'
     }
