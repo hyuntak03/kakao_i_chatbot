@@ -244,9 +244,7 @@ function detectword(stringmsg) {
         return 'special case'
     } else if (stringmsg == '0209') {
         return 'ments_del_psw'
-    } else if (stringmsg.includes('-') && stringmsg.includes('반')){
-        return '완료'
-    }
+    } 
     else {
         return stringmsg;
     }
@@ -295,11 +293,6 @@ reactword = function (keymsg, msg, callback) {
             buttons = ['1학년', '2학년', '3학년']
             buttoncore = ['1학년', '2학년', '3학년']
             break; 
-        case '완료':
-            answer = '학생정보 설정이 완료되었습니다.'
-            var student_info = id + msg
-            fs.writeFileSync('student_info.txt', student_info);
-            break;
         case '성적':
             answer = '학년을 선택해주세요'
             buttons = ['1학년 등급','2학년 등급','3학년 등급']
@@ -1281,13 +1274,6 @@ apiRouter.post('/switch', function (req, res) {
     var userlang = req.body.userRequest.lang;
     var keyword = detectword(msg);
     console.log(msg);
-    id = userid.toString();
-    // if(msg.includes('-') && msg.includes('반')){
-    //     //answer = '학년 설정이 완료되었습니다'
-    //     var student_info = userid + msg
-    //     fs.writeFileSync('student_info.txt', student_info);
-    //     return '완료'
-    // }
 
     reactword(keyword, msg, reaction => {
         var answer = reaction[0];
@@ -1296,6 +1282,13 @@ apiRouter.post('/switch', function (req, res) {
         var buttoncore = reaction[3];
         var addans = reaction[4];
         console.log('answer:' + answer);
+
+        if(msg.includes('-') && msg.includes('반')){
+            //answer = '학년 설정이 완료되었습니다'
+            var student_info = userid + msg
+            fs.writeFileSync('student_info.txt', student_info);
+            return '완료'
+        }
 
         var outputres = [];
         const tmpout1 = {
