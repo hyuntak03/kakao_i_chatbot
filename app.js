@@ -39,7 +39,7 @@ function alwayswinbr(oppnum) {
         return oppnum + 3;
     }
 }
-function Onlynum(str) {
+function find_num(str) {
     var num = str.replace(/[^0-9]/g,"")
     return num;
 }
@@ -303,31 +303,6 @@ reactword = function (keymsg, msg, callback) {
         }
     }
 
-    if (msg == 'test') {
-        for (var i = 0; i < detect_id.length; i++) {
-            if (id.includes(detect_id[i])) {
-                answer = class_info(detect_id[i])
-                var answerresult = [];
-                answerresult.push(answer);
-                answerresult.push(buttons);
-                answerresult.push(link);
-                answerresult.push(buttoncore);
-                answerresult.push(addans);
-                callback(answerresult);
-                return;
-            } else {
-                answer = '학생 정보를 설정해주세요.'
-                var answerresult = [];
-                answerresult.push(answer);
-                answerresult.push(buttons);
-                answerresult.push(link);
-                answerresult.push(buttoncore);
-                answerresult.push(addans);
-                callback(answerresult);
-                return;
-            }
-        }
-    }
 
     switch (keymsg) {
         case '학생정보 설정':
@@ -347,6 +322,15 @@ reactword = function (keymsg, msg, callback) {
             } else if (grade == 3) {
                 buttons = [grade + '-1반', grade + '-2반', grade + '-3반', grade + '-4반', grade + '-5반', grade + '-6반', grade + '-7반', grade + '-8반', grade + '-9반', grade + '-10반', grade + '-11반', grade + '-12반', grade + '-13반']
                 buttoncore = [grade + '-1반', grade + '-2반', grade + '-3반', grade + '-4반', grade + '-5반', grade + '-6반', grade + '-7반', grade + '-8반', grade + '-9반', grade + '-10반', grade + '-11반', grade + '-12반', grade + '-13반']
+            }
+            break;
+        case 'test':
+            for (var i = 0; i < detect_id.length; i++) {
+                if (detect_id[i].includes(id)) {
+                    answer = class_info(detect_id[i]).toString()
+                } else {
+                    answer = '학생 정보를 설정해주세요.'
+                }
             }
             break;
         case '성적':
