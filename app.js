@@ -43,6 +43,16 @@ function find_num(str) {
     var num = str.replace(/[^0-9]/g, "")
     return num;
 }
+function find_info() {
+    for (var i = 0; i < detect_id.length; i++) {
+        if (detect_id[i].includes(id)) {
+            result = class_info(detect_id[i])[1]
+        } else {
+            result = 'no info'
+        }
+    }
+    return result
+}
 function randomnum(startnum, endnum) {
     var randint = Math.floor(Math.random() * (endnum - startnum + 1));
     if (randint == (endnum - startnum + 1)) {
@@ -248,6 +258,10 @@ function detectword(stringmsg) {
 const Timetable = require('comcigan-parser');
 const timetable = new Timetable();
 var id;
+
+var student_info = fs.readFileSync('student_info.txt', 'utf8')
+var detect_id = student_info.toString().split('\n')
+
 reactword = function (keymsg, msg, callback) {
     var answer = '';
     var link = '';
@@ -265,9 +279,6 @@ reactword = function (keymsg, msg, callback) {
     //console.log('커스텀 멘트목록:' + mentsarr);
     var bad_words = fs.readFileSync('bad_words.txt', 'utf8')
     var detect = bad_words.toString().split(' ');
-
-    var student_info = fs.readFileSync('student_info.txt', 'utf8')
-    var detect_id = student_info.toString().split('\n')
 
     var psw = fs.readFileSync('psw.txt', 'utf8')
 
@@ -371,9 +382,9 @@ reactword = function (keymsg, msg, callback) {
         case 'time-table_info':
             iscallback = 1;
             var class_day_info = msg;//출력 예시:1-1반 월요일
-            var grade_class = find_num(msg)
-            var ngrade = find_num(msg)[0]
-            var nclass = find_num(msg)[1]
+            var grade_class = find_info()
+            var ngrade = find_num(grade_class)[0]
+            var nclass = find_num(grade_class)[1]
             console.log(nclass)
             var day;
             var day_num;
@@ -393,48 +404,53 @@ reactword = function (keymsg, msg, callback) {
                 day = '금'
                 day_num = 4
             }
-            timetable.init()
-                .then(() => {
-                    return timetable.setSchool('분당중앙고')
-                })
-                .then(() => {
-                    return timetable.getTimetable()
-                })
-                .then(result => {
-                    data_type = result[ngrade][nclass][day_num];
-                    last_type = ngrade + '학년 ' + nclass + '반 ' + '시간표(' + day + '요일' + ')\n\n';
-                    for (var i = 0; i < data_type.length; i++) {
-                        last_type += (i + 1) + '교시: ' + data_type[i].subject.slice(0, 5) + '(' + data_type[i].teacher.slice(0, 3) + ')\n';
-                    }
-                    console.log(last_type);
-                    answer = last_type;
-                    addans = '비어있는곳은 수업이 없는거에요!'
-                    buttons = ['메뉴', '다른 시간표 보기']
-                    buttoncore = ['메뉴', '다른 시간표 보기']
-                    answertype = 6;
-                    var answerresult = [];
-                    answerresult.push(answer);
-                    answerresult.push(buttons);
-                    answerresult.push(link);
-                    answerresult.push(buttoncore);
-                    answerresult.push(addans);
-                    answerresult.push(answertype);
-                    callback(answerresult);
-                })
-                .catch(err => {
-                    console.error(err)
-                    answer = '시간표 정보를 불러오는데 실패했어요...ㅠㅠ'
-                    buttons = ['메뉴']
-                    buttoncore = ['메뉴']
-                    var answerresult = [];
-                    answerresult.push(answer);
-                    answerresult.push(buttons);
-                    answerresult.push(link);
-                    answerresult.push(buttoncore);
-                    answerresult.push(addans);
-                    answerresult.push(answertype);
-                    callback(answerresult);
-                })
+            if (grade_class.toString() == 'no info') {
+                answer = '학생정보를 등록해주세요'
+            } else {
+                timetable.init()
+                    .then(() => {
+                        return timetable.setSchool('분당중앙고')
+                    })
+                    .then(() => {
+                        return timetable.getTimetable()
+                    })
+                    .then(result => {
+                        data_type = result[ngrade][nclass][day_num];
+                        last_type = ngrade + '학년 ' + nclass + '반 ' + '시간표(' + day + '요일' + ')\n\n';
+                        for (var i = 0; i < data_type.length; i++) {
+                            last_type += (i + 1) + '교시: ' + data_type[i].subject.slice(0, 5) + '(' + data_type[i].teacher.slice(0, 3) + ')\n';
+                        }
+                        console.log(last_type);
+                        answer = last_type;
+                        addans = '비어있는곳은 수업이 없는거에요!'
+                        buttons = ['메뉴', '다른 시간표 보기']
+                        buttoncore = ['메뉴', '다른 시간표 보기']
+                        answertype = 6;
+                        var answerresult = [];
+                        answerresult.push(answer);
+                        answerresult.push(buttons);
+                        answerresult.push(link);
+                        answerresult.push(buttoncore);
+                        answerresult.push(addans);
+                        answerresult.push(answertype);
+                        callback(answerresult);
+                    })
+                    .catch(err => {
+                        console.error(err)
+                        answer = '시간표 정보를 불러오는데 실패했어요...ㅠㅠ'
+                        buttons = ['메뉴']
+                        buttoncore = ['메뉴']
+                        var answerresult = [];
+                        answerresult.push(answer);
+                        answerresult.push(buttons);
+                        answerresult.push(link);
+                        answerresult.push(buttoncore);
+                        answerresult.push(addans);
+                        answerresult.push(answertype);
+                        callback(answerresult);
+                    })
+
+            }
             break;
         case '오늘 급식':
             iscallback = 1;
