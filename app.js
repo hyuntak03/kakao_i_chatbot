@@ -272,7 +272,7 @@ reactword = function (keymsg, msg, callback) {
     var ments = fs.readFileSync('ments.txt', 'utf8')
 
     if (msg.includes('-') && msg.includes('반')) {
-        msg  = find_num(msg)[0].toString() + find_num(msg).toString()
+        msg  = find_num(msg)[0].toString() + '-' + find_num(msg)[1].toString()
         var student_info = fs.readFileSync('student_info.txt', 'utf8') + '\n' + id + ':' + msg
         fs.writeFileSync('student_info.txt', student_info);
         answer = '학년 설정이 완료되었습니다'
@@ -327,7 +327,7 @@ reactword = function (keymsg, msg, callback) {
         case 'test':
             for (var i = 0; i < detect_id.length; i++) {
                 if (detect_id[i].includes(id)) {
-                    answer = class_info(detect_id[i]).toString()
+                    answer = class_info(detect_id[i])[0] + '-' + class_info(detect_id[i])[1]
                 } else {
                     answer = '학생 정보를 설정해주세요.'
                 }
