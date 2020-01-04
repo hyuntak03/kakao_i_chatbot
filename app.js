@@ -320,7 +320,7 @@ reactword = function (keymsg, msg, callback) {
         case 'test':
             for (var i = 0; i < detect_id.length; i++) {
                 if (detect_id[i].includes(id)) {
-                    answer = class_info(detect_id[i])[0] + '-' + class_info(detect_id[i])[1]
+                    answer = class_info(detect_id[i])[1]
                 } else {
                     answer = '학생 정보를 설정해주세요.'
                 }
