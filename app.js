@@ -40,7 +40,7 @@ function alwayswinbr(oppnum) {
     }
 }
 function find_num(str) {
-    var num = str.replace(/[^0-9]/g,"")
+    var num = str.replace(/[^0-9]/g, "")
     return num;
 }
 function randomnum(startnum, endnum) {
@@ -59,7 +59,7 @@ function makepsw() {
     return psw;
 }
 
-function class_info(str){
+function class_info(str) {
     str = str.toString().split(':')
     return str;
 }
@@ -238,6 +238,8 @@ function detectword(stringmsg) {
         return 'special case'
     } else if (stringmsg.includes('ments') && stringmsg.includes('del')) {
         return 'ments_del_psw'
+    } else if (stringmsg.includes('-') && stringmsg.includes('반')) {
+        return '학생정보 설정 완료'
     }
     else {
         return stringmsg;
@@ -270,21 +272,6 @@ reactword = function (keymsg, msg, callback) {
     var psw = fs.readFileSync('psw.txt', 'utf8')
 
     var ments = fs.readFileSync('ments.txt', 'utf8')
-
-    if (msg.includes('-') && msg.includes('반')) {
-        msg  = find_num(msg)[0].toString() + '-' + find_num(msg)[1].toString()
-        var student_info = fs.readFileSync('student_info.txt', 'utf8') + '\n' + id + ':' + msg
-        fs.writeFileSync('student_info.txt', student_info);
-        answer = '학년 설정이 완료되었습니다'
-        var answerresult = [];
-        answerresult.push(answer);
-        answerresult.push(buttons);
-        answerresult.push(link);
-        answerresult.push(buttoncore);
-        answerresult.push(addans);
-        callback(answerresult);
-        return;
-    }
 
     for (var i = 0; i < detect.length; i++) {
         if (msg.includes(detect[i])) {
@@ -323,6 +310,12 @@ reactword = function (keymsg, msg, callback) {
                 buttons = [grade + '-1반', grade + '-2반', grade + '-3반', grade + '-4반', grade + '-5반', grade + '-6반', grade + '-7반', grade + '-8반', grade + '-9반', grade + '-10반', grade + '-11반', grade + '-12반', grade + '-13반']
                 buttoncore = [grade + '-1반', grade + '-2반', grade + '-3반', grade + '-4반', grade + '-5반', grade + '-6반', grade + '-7반', grade + '-8반', grade + '-9반', grade + '-10반', grade + '-11반', grade + '-12반', grade + '-13반']
             }
+            break;
+        case '학생정보 설정 완료':
+            msg = find_num(msg)[0].toString() + '-' + find_num(msg)[1].toString()
+            var student_info = fs.readFileSync('student_info.txt', 'utf8') + '\n' + id + ':' + msg
+            fs.writeFileSync('student_info.txt', student_info);
+            answer = '학년 설정이 완료되었습니다'
             break;
         case 'test':
             for (var i = 0; i < detect_id.length; i++) {
