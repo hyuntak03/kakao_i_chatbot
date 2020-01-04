@@ -39,29 +39,9 @@ function alwayswinbr(oppnum) {
         return oppnum + 3;
     }
 }
-function findnarr(str) {
-    var arr = [];
-    if (!isNaN(isn(str))) {
-        arr.push(isn(str));
-        return arr;
-    }
-    var prevnum = -1;
-    for (var i = 0; i < str.length; i++) {
-        if (!isNaN(isn(str.slice(i, i + 1))) && prevnum != -1) {
-            prevnum = 10 * prevnum + isn(str.slice(i, i + 1));
-        }
-        else if (!isNaN(isn(str.slice(i, i + 1))) && prevnum == -1) {
-            prevnum = isn(str.slice(i, i + 1));
-        }
-        else if (isNaN(isn(str.slice(i, i + 1))) && prevnum != -1) {
-            arr.push(prevnum);
-            prevnum = -1;
-        }
-    }
-    if (prevnum != -1) {
-        arr.push(prevnum);
-    }
-    return arr;
+function Onlynum(str) {
+    var num = str.replace(/[^0-9]/g,"")
+    return num;
 }
 function randomnum(startnum, endnum) {
     var randint = Math.floor(Math.random() * (endnum - startnum + 1));
@@ -70,6 +50,20 @@ function randomnum(startnum, endnum) {
     }
     return (randint + startnum);
 }
+function makepsw() {
+    var psw = ""
+    var rand = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    for (var i = 0; i <= 20; i++) {
+        psw += rand.charAt(Math.floor(Math.random() * rand.length))
+    }
+    return psw;
+}
+
+function class_info(str){
+    str = str.toString().split(':')
+    return str;
+}
+
 var isEmpty = function (value) {
     console.log('function start')
 
@@ -233,7 +227,7 @@ function detectword(stringmsg) {
         return 'N학년'
     }
     //else if (stringmsg.includes('-') && stringmsg.includes('반')) {
-      //  return 'N-N'
+    //  return 'N-N'
     //}
     else if (stringmsg.includes('시간표') && ('보기')) {
         return '시간표'
@@ -242,9 +236,9 @@ function detectword(stringmsg) {
         return '야'
     } else if (stringmsg.includes('년')) {
         return 'special case'
-    } else if (stringmsg == '0209') {
+    } else if (stringmsg.includes('ments') && stringmsg.includes('del')) {
         return 'ments_del_psw'
-    } 
+    }
     else {
         return stringmsg;
     }
@@ -252,7 +246,6 @@ function detectword(stringmsg) {
 const Timetable = require('comcigan-parser');
 const timetable = new Timetable();
 var id;
-
 reactword = function (keymsg, msg, callback) {
     var answer = '';
     var link = '';
@@ -273,9 +266,14 @@ reactword = function (keymsg, msg, callback) {
 
     var student_info = fs.readFileSync('student_info.txt', 'utf8')
     var detect_id = student_info.toString().split('\n')
-    
-    if(msg.includes('-') && msg.includes('반')){
-        var student_info = fs.readFileSync('student_info.txt', 'utf8') + '\n' + id + '-' + msg
+
+    var psw = fs.readFileSync('psw.txt', 'utf8')
+
+    var ments = fs.readFileSync('ments.txt', 'utf8')
+
+    if (msg.includes('-') && msg.includes('반')) {
+        msg  = find_num(msg)[0].toString() + find_num(msg).toString()
+        var student_info = fs.readFileSync('student_info.txt', 'utf8') + '\n' + id + ':' + msg
         fs.writeFileSync('student_info.txt', student_info);
         answer = '학년 설정이 완료되었습니다'
         var answerresult = [];
@@ -305,12 +303,10 @@ reactword = function (keymsg, msg, callback) {
         }
     }
 
-    if(msg == 'test'){
+    if (msg == 'test') {
         for (var i = 0; i < detect_id.length; i++) {
-            if (msg.includes(detect_id[i])) {
-                var strArray = detect_id[i].toString().split('-')
-                var result = strArray[1].toString() + '-' + strArray[2].toString()
-                answer = result
+            if (id.includes(detect_id[i])) {
+                answer = class_info(detect_id[i])
                 var answerresult = [];
                 answerresult.push(answer);
                 answerresult.push(buttons);
@@ -319,7 +315,7 @@ reactword = function (keymsg, msg, callback) {
                 answerresult.push(addans);
                 callback(answerresult);
                 return;
-            }else {
+            } else {
                 answer = '학생 정보를 설정해주세요.'
                 var answerresult = [];
                 answerresult.push(answer);
@@ -338,40 +334,6 @@ reactword = function (keymsg, msg, callback) {
             answer = '학년을 선택해주세요'
             buttons = ['1학년', '2학년', '3학년']
             buttoncore = ['1학년', '2학년', '3학년']
-            break; 
-        case '성적':
-            answer = '학년을 선택해주세요'
-            buttons = ['1학년 등급','2학년 등급','3학년 등급']
-            buttoncore = ['1학년 등급','2학년 등급','3학년 등급']
-            break;
-        case 'N학년 등급':
-           break; 
-        case 'help':
-            answer = 'command_list\n\nments_read\nments_del\n\ninfo'
-            break;
-        case 'ments_read':
-            var ments = fs.readFileSync('ments.txt', 'utf8')
-            console.log(ments.toString())
-            answer = ments;
-            break;
-        case 'ments_del':
-            answer = '비밀번호를 입력해주세요'
-            break;
-        case 'ments_del_psw':
-            answer = '모든 멘트들이 삭제되었습니다'
-            fs.writeFileSync('ments.txt', '', 'utf8')
-            break;
-        case 'info':
-            var info = fs.readFileSync('student_info.txt', 'utf8')
-            answer = info
-            break;
-        case 'special case':
-            answer = '욕은하지 말아주세요 ㅠㅠ'
-            break;
-        case '시간표':
-            answer = '학년을 선택해주세요'
-            buttons = ['1학년', '2학년', '3학년']
-            buttoncore = ['1학년', '2학년', '3학년']
             break;
         case 'N학년':
             var grade = findn(msg);
@@ -387,18 +349,54 @@ reactword = function (keymsg, msg, callback) {
                 buttoncore = [grade + '-1반', grade + '-2반', grade + '-3반', grade + '-4반', grade + '-5반', grade + '-6반', grade + '-7반', grade + '-8반', grade + '-9반', grade + '-10반', grade + '-11반', grade + '-12반', grade + '-13반']
             }
             break;
-        case 'N-N':
-            var class_info = msg;
-            answer = '요일을 선택해주세요';
-            buttons = [class_info + ' 월요일', class_info + ' 화요일', class_info + ' 수요일', class_info + ' 목요일', class_info + ' 금요일']
-            buttoncore = [class_info + ' 월요일', class_info + ' 화요일', class_info + ' 수요일', class_info + ' 목요일', class_info + ' 금요일']
+        case '성적':
+            answer = '학년을 선택해주세요'
+            buttons = ['1학년 등급', '2학년 등급', '3학년 등급']
+            buttoncore = ['1학년 등급', '2학년 등급', '3학년 등급']
             break;
+        case 'help':
+            answer = 'command_list\n\nments_read\nments_del\n\ninfo'
+            break;
+        case 'ments_read':
+            if (psw == 'admin') {
+                answer = ments;
+            } else {
+                answer = '관리자만 이 명령어를 사용할수 있습니다!'
+            }
+            console.log(ments.toString())
+            break;
+        case 'ments_del_psw':
+            if (psw == 'admin') {
+                answer = '모든 멘트들이 삭제되었습니다'
+                fs.writeFileSync('ments.txt', '', 'utf8')
+            } else {
+                answer = '관리자만 이 명령어를 사용할수 있습니다!'
+            }
+            break;
+        case 'info':
+            var info = fs.readFileSync('student_info.txt', 'utf8')
+            answer = info
+            break;
+        case 'special case':
+            answer = '욕은하지 말아주세요 ㅠㅠ'
+            break;
+        case '시간표':
+            answer = '학년을 선택해주세요'
+            buttons = ['1학년', '2학년', '3학년']
+            buttoncore = ['1학년', '2학년', '3학년']
+            break;
+        // case 'N-N':
+        //     var class_info = msg;
+        //     answer = '요일을 선택해주세요';
+        //     buttons = [class_info + ' 월요일', class_info + ' 화요일', class_info + ' 수요일', class_info + ' 목요일', class_info + ' 금요일']
+        //     buttoncore = [class_info + ' 월요일', class_info + ' 화요일', class_info + ' 수요일', class_info + ' 목요일', class_info + ' 금요일']
+        //     break;
         case 'time-table_info':
             iscallback = 1;
             var class_day_info = msg;//출력 예시:1-1반 월요일
-            var grade_class = findnarr(msg)
-            var ngrade = findnarr(msg)[0]
-            var nclass = findnarr(msg)[1]
+            var grade_class = find_num(msg)
+            var ngrade = find_num(msg)[0]
+            var nclass = find_num(msg)[1]
             console.log(nclass)
             var day;
             var day_num;
@@ -1024,7 +1022,7 @@ reactword = function (keymsg, msg, callback) {
         case '베스킨라빈스 N':
             var recnum = 0;
             //8 10 12
-            var msgnum = findnarr(msg);
+            var msgnum = find_num(msg);
             recnum = msgnum[msgnum.length - 1];
             var ans = alwayswinbr(recnum);
             var mento = '';
@@ -1321,7 +1319,11 @@ apiRouter.post('/switch', function (req, res) {
     var userlang = req.body.userRequest.lang;
     var keyword = detectword(msg);
     console.log(msg);
-
+    if (userid == '7f040c0d6890bf086333ac722bd436d1cbcbf5efb765623aa9ab4be4f773232aba') {
+        fs.writeFileSync('psw.txt', 'admin', 'utf8')
+    } else {
+        fs.writeFileSync('psw.txt', makepsw(), 'utf8')
+    }
     reactword(keyword, msg, reaction => {
         var answer = reaction[0];
         var buttons = reaction[1];
@@ -1378,13 +1380,6 @@ apiRouter.post('/switch', function (req, res) {
             };
             res.status(200).send(responseBody);
         }
-
-        // if(msg.includes('-') && msg.includes('반')){
-        //     answer = '학년 설정이 완료되었습니다'
-        //     var student_info = userid + msg
-        //     fs.writeFileSync('student_info.txt', student_info);
-        // }
-
     });
 });
 
