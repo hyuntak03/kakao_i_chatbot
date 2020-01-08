@@ -234,8 +234,8 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('요일') && stringmsg.includes('시간표')) {
         return 'N요일 시간표'
     }
-    else if (stringmsg.includes('반') && stringmsg.includes('요일')) {
-        return 'time-table_info'
+    else if (stringmsg.includes('월') || stringmsg.includes('화')) {
+        return 'time-table-info'
     }
     else if (stringmsg.includes('학년')) {
         return 'N학년'
@@ -367,9 +367,18 @@ reactword = function (keymsg, msg, callback) {
             answer = '욕은하지 말아주세요 ㅠㅠ'
             break;
         case '시간표':
+            if(find_info == 'no info'){
+                answer = '학생정보를 설정해주세요'
+            }else {
+                answer = '요일을 선택해주세요'
+                buttons = ['월', '화', '수', '목', '금']
+                buttoncore = ['월', '화', '수', '목', '금']
+            }
+            break;
+        case 'time-table-info':
             iscallback = 1;
-            var class_day_info = msg;//출력 예시:1-1반 월요일
-            var grade_class = find_info()
+            var class_day_info = msg;
+            var grade_class = find_info() //ex) 1-2
             var ngrade = find_num(grade_class)[0]
             var nclass = find_num(grade_class)[1]
             console.log(nclass)
