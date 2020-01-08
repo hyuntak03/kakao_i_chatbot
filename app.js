@@ -60,8 +60,6 @@ function makepsw() {
 }
 
 function find_info() {
-    var student_info = fs.readFileSync('student_info.txt', 'utf8')
-    var detect_id = student_info.toString().split('\n')
     for (var i = 0; i < detect_id.length; i++) {
         if (detect_id[i].includes(id)) {
             result = class_info(detect_id[i])[1]
@@ -332,7 +330,7 @@ reactword = function (keymsg, msg, callback) {
             answer = '학년 설정이 완료되었습니다'
             break;
         case 'test':
-            answer = find_info().toString
+            answer = find_info().toString()
             break;
         case '성적':
             answer = '학년을 선택해주세요'
@@ -1375,4 +1373,5 @@ var port = process.env.PORT || 3000;
 app.listen(port, function () {
     console.log('서버 실행중...');
 });
+
 
