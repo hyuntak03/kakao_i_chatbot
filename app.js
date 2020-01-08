@@ -331,14 +331,7 @@ reactword = function (keymsg, msg, callback) {
             answer = '학년 설정이 완료되었습니다'
             break;
         case 'test':
-            for (var i = 0; i < detect_id.length; i++) {
-                if (detect_id[i].includes(id)) {
-                    answer = class_info(detect_id[i])[1]
-                    break;
-                } else {
-                    answer = '학생 정보를 설정해주세요.'
-                }
-            }
+            answer = find_info().toString
             break;
         case '성적':
             answer = '학년을 선택해주세요'
