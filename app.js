@@ -43,16 +43,6 @@ function find_num(str) {
     var num = str.replace(/[^0-9]/g, "")
     return num;
 }
-function find_info() {
-    for (var i = 0; i < detect_id.length; i++) {
-        if (detect_id[i].includes(id)) {
-            result = class_info(detect_id[i])[1]
-        } else {
-            result = 'no info'
-        }
-    }
-    return result
-}
 function randomnum(startnum, endnum) {
     var randint = Math.floor(Math.random() * (endnum - startnum + 1));
     if (randint == (endnum - startnum + 1)) {
@@ -67,11 +57,6 @@ function makepsw() {
         psw += rand.charAt(Math.floor(Math.random() * rand.length))
     }
     return psw;
-}
-
-function class_info(str) {
-    str = str.toString().split(':')
-    return str;
 }
 
 var isEmpty = function (value) {
@@ -259,10 +244,24 @@ const Timetable = require('comcigan-parser');
 const timetable = new Timetable();
 var id;
 
-var fs = require('fs');
-var student_info = fs.readFileSync('student_info.txt', 'utf8')
-var detect_id = student_info.toString().split('\n')
 reactword = function (keymsg, msg, callback) {
+
+    function find_info() {
+        for (var i = 0; i < detect_id.length; i++) {
+            if (detect_id[i].includes(id)) {
+                result = class_info(detect_id[i])[1]
+            } else {
+                result = 'no info'
+            }
+        }
+        return result
+    }
+    
+    function class_info(str) {
+        str = str.toString().split(':')
+        return str;
+    }
+
     var answer = '';
     var link = '';
     var buttons = [];
@@ -283,6 +282,9 @@ reactword = function (keymsg, msg, callback) {
     var psw = fs.readFileSync('psw.txt', 'utf8')
 
     var ments = fs.readFileSync('ments.txt', 'utf8')
+
+    var student_info = fs.readFileSync('student_info.txt', 'utf8')
+    var detect_id = student_info.toString().split('\n')
 
     for (var i = 0; i < detect.length; i++) {
         if (msg.includes(detect[i])) {
@@ -1256,7 +1258,7 @@ const School = require('node-school-kr');
 const school = new School();
 school.init(School.Type.HIGH, School.Region.GYEONGGI, 'J100000590');//(중앙고는 J100000590)
 var cheerio = require('cheerio');
-
+var fs = require('fs');
 var express = require('express');
 const app = express();
 const logger = require('morgan');
