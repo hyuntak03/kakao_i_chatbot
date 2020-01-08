@@ -59,6 +59,24 @@ function makepsw() {
     return psw;
 }
 
+function find_info() {
+    var student_info = fs.readFileSync('student_info.txt', 'utf8')
+    var detect_id = student_info.toString().split('\n')
+    for (var i = 0; i < detect_id.length; i++) {
+        if (detect_id[i].includes(id)) {
+            result = class_info(detect_id[i])[1]
+        } else {
+            result = 'no info'
+        }
+    }
+    return result
+}
+
+function class_info(str) {
+    str = str.toString().split(':')
+    return str;
+}
+
 var isEmpty = function (value) {
     console.log('function start')
 
@@ -245,23 +263,6 @@ const timetable = new Timetable();
 var id;
 
 reactword = function (keymsg, msg, callback) {
-
-    function find_info() {
-        for (var i = 0; i < detect_id.length; i++) {
-            if (detect_id[i].includes(id)) {
-                result = class_info(detect_id[i])[1]
-            } else {
-                result = 'no info'
-            }
-        }
-        return result
-    }
-    
-    function class_info(str) {
-        str = str.toString().split(':')
-        return str;
-    }
-
     var answer = '';
     var link = '';
     var buttons = [];
