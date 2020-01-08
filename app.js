@@ -62,7 +62,7 @@ function makepsw() {
 function find_info() {
     var student_info = fs.readFileSync('student_info.txt', 'utf8')
     var detect_id = student_info.toString().split('\n')
-    
+
     for (var i = 0; i < detect_id.length; i++) {
         if (detect_id[i].includes(id)) {
             result = class_info(detect_id[i])[1]
@@ -264,9 +264,6 @@ const timetable = new Timetable();
 var id;
 
 var fs = require('fs');
-var student_info = fs.readFileSync('student_info.txt', 'utf8')
-var detect_id = student_info.toString().split('\n')
-
 reactword = function (keymsg, msg, callback) {
     var answer = '';
     var link = '';
@@ -288,6 +285,9 @@ reactword = function (keymsg, msg, callback) {
     var psw = fs.readFileSync('psw.txt', 'utf8')
 
     var ments = fs.readFileSync('ments.txt', 'utf8')
+
+    var student_info = fs.readFileSync('student_info.txt', 'utf8')
+    var detect_id = student_info.toString().split('\n')
 
     for (var i = 0; i < detect.length; i++) {
         if (msg.includes(detect[i])) {
