@@ -259,9 +259,9 @@ const Timetable = require('comcigan-parser');
 const timetable = new Timetable();
 var id;
 
+var fs = require('fs');
 var student_info = fs.readFileSync('student_info.txt', 'utf8')
 var detect_id = student_info.toString().split('\n')
-
 reactword = function (keymsg, msg, callback) {
     var answer = '';
     var link = '';
@@ -1254,7 +1254,6 @@ var request = require('request');
 const School = require('node-school-kr');
 const school = new School();
 school.init(School.Type.HIGH, School.Region.GYEONGGI, 'J100000590');//(중앙고는 J100000590)
-var fs = require('fs');
 var cheerio = require('cheerio');
 
 var express = require('express');
