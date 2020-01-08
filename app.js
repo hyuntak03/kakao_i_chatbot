@@ -358,8 +358,7 @@ reactword = function (keymsg, msg, callback) {
             }
             break;
         case 'info':
-            var info = fs.readFileSync('student_info.txt', 'utf8')
-            answer = info
+            answer = student_info
             break;
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
