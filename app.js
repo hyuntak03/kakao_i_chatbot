@@ -332,6 +332,7 @@ reactword = function (keymsg, msg, callback) {
             for (var i = 0; i < detect_id.length; i++) {
                 if (detect_id[i].includes(id)) {
                     answer = class_info(detect_id[i])[1]
+                    break;
                 } else {
                     answer = '학생 정보를 설정해주세요.'
                 }
@@ -368,18 +369,18 @@ reactword = function (keymsg, msg, callback) {
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
             break;
-        case '시간표':
-            answer = '학년을 선택해주세요'
-            buttons = ['1학년', '2학년', '3학년']
-            buttoncore = ['1학년', '2학년', '3학년']
-            break;
+        // case '시간표':
+        //     answer = '학년을 선택해주세요'
+        //     buttons = ['1학년', '2학년', '3학년']
+        //     buttoncore = ['1학년', '2학년', '3학년']
+        //     break;
         // case 'N-N':
         //     var class_info = msg;
         //     answer = '요일을 선택해주세요';
         //     buttons = [class_info + ' 월요일', class_info + ' 화요일', class_info + ' 수요일', class_info + ' 목요일', class_info + ' 금요일']
         //     buttoncore = [class_info + ' 월요일', class_info + ' 화요일', class_info + ' 수요일', class_info + ' 목요일', class_info + ' 금요일']
         //     break;
-        case 'time-table_info':
+        case '시간표':
             iscallback = 1;
             var class_day_info = msg;//출력 예시:1-1반 월요일
             var grade_class = find_info()
