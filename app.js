@@ -361,7 +361,7 @@ reactword = function (keymsg, msg, callback) {
             }
             break;
         case 'info':
-            answer = ments;
+            answer = student_info;
             break;
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
