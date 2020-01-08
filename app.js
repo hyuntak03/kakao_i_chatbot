@@ -60,6 +60,9 @@ function makepsw() {
 }
 
 function find_info() {
+    var student_info = fs.readFileSync('student_info.txt', 'utf8')
+    var detect_id = student_info.toString().split('\n')
+    
     for (var i = 0; i < detect_id.length; i++) {
         if (detect_id[i].includes(id)) {
             result = class_info(detect_id[i])[1]
@@ -358,7 +361,7 @@ reactword = function (keymsg, msg, callback) {
             }
             break;
         case 'info':
-            answer = student_info
+            answer = student_info.toString()
             break;
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
