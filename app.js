@@ -234,7 +234,7 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('요일') && stringmsg.includes('시간표')) {
         return 'N요일 시간표'
     }
-    else if (stringmsg.includes('월') || stringmsg.includes('화')) {
+    else if (stringmsg.includes('월') || stringmsg.includes('화') || stringmsg.includes('수') || stringmsg.includes('목') || stringmsg.includes('금')) {
         return 'time-table-info'
     }
     else if (stringmsg.includes('학년')) {
@@ -627,22 +627,28 @@ reactword = function (keymsg, msg, callback) {
         case 'N요일 급식':
             iscallback = 1;
             var dt = new Date();
+            var week;
             var Alerge = ' \n\n식품 알러지가 있으신 분은"알러지"를 통해 확인해주세요';
             school.getMeal().then(function (result) {
                 var weekday = 0//sunday,qingqitian
                 if (msg.includes('월요일') || msg.includes('월욜')) {
+                    week = '월요일'
                     weekday = 1;
                 }
                 else if (msg.includes('화요일') || msg.includes('화욜')) {
+                    week = '화요일'
                     weekday = 2;
                 }
                 else if (msg.includes('수요일') || msg.includes('수욜')) {
+                    week = '수요일'
                     weekday = 3;
                 }
                 else if (msg.includes('목요일') || msg.includes('목욜')) {
+                    week = '목요일'
                     weekday = 4;
                 }
                 else if (msg.includes('금요일') || msg.includes('금욜')) {
+                    week = '금요일'
                     weekday = 5;
                 }
                 else if (msg.includes('토요일') || msg.includes('토욜')) {
@@ -652,10 +658,10 @@ reactword = function (keymsg, msg, callback) {
                 var mealday = result[day]
                 var n_meal = mealday
                 if (!n_meal) {
-                    n_meal = '그때는 급식이 없었네요 ㅠㅠ'
+                    n_meal = week + ' 에는급식이 없었네요 ㅠㅠ'
                     Alerge = ''
                     if (weekday - dt.getDay() > 0) {
-                        n_meal = '그때는 급식이 없어요 ㅠㅠ'
+                        n_meal = week + ' 에는급식이 없어요 ㅠㅠ'
                     }
                     if (weekday - dt.getDay() == 0) {
                         n_meal = '오늘은 급식이 없어요 ㅠㅠ'
@@ -666,7 +672,7 @@ reactword = function (keymsg, msg, callback) {
                     console.log(n_meal)
                     answertype = 1;
                 }
-                answer = '🍚그떄 급식입니다!'
+                answer = '🍚' + week + ' 급식입니다!'
                 addans = n_meal + Alerge
                 buttons = ['메뉴 보기', '다른날 급식도 보기']
                 buttoncore = ['메뉴 보기', '다른날 급식도 보기']
@@ -697,12 +703,13 @@ reactword = function (keymsg, msg, callback) {
                 var day = dt.getDate();
                 var noticeday = result[day]
                 var today_Notice = result[noticeday]
-                if (!today_Notice) {
+                if (today_Notice == null) {
                     today_Notice = '오늘은 특별한 일정이 없네요!'
                     console.log('no Notice')
-                } else {
+                } else if(today_Notice.includes('방학')) {
+                    today_Notice = '즐거운 방학 보내세요~'
                     console.log(today_Notice)
-                }
+                } 
                 answer = today_Notice;
                 buttons = ['메뉴 보기', '다른날 일정도 보기']
                 buttoncore = ['메뉴 보기', '다른날 일정도 보기']
