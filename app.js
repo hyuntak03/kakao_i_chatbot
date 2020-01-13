@@ -369,7 +369,7 @@ reactword = function (keymsg, msg, callback) {
             answer = '욕은하지 말아주세요 ㅠㅠ'
             break;
         case '시간표':
-            if (find_info == 'no info') {
+            if (find_info() == 'no info') {
                 answer = '학생정보를 설정해주세요'
                 buttons = ['학생정보 설정']
                 buttoncore = ['학생정보 설정']
