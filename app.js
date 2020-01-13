@@ -153,12 +153,6 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('급식')) {
         return '급식'
     }
-    else if (stringmsg.startsWith('(갤러리)페이지 ')) {
-        return '갤러리N'
-    }
-    else if (stringmsg.includes('갤러리')) {
-        return '갤러리'
-    }
     else if (stringmsg.includes('안녕') || stringmsg.includes('ㅎㅇ') || stringmsg.includes('안뇽') || stringmsg.includes('하이')) {
         return '안녕'
     }
@@ -198,9 +192,6 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('1') && stringmsg.includes('예측하기') || stringmsg.includes('2') && stringmsg.includes('예측하기') || stringmsg.includes('3') && stringmsg.includes('예측하기') || stringmsg.includes('4') && stringmsg.includes('예측하기') || stringmsg.includes('5') && stringmsg.includes('예측하기') || stringmsg.includes('6') && stringmsg.includes('예측하기')) {
         return '주사위 게임 N'
     }
-    // else if (stringmsg.includes('주사위') && stringmsg.includes('1') || stringmsg.includes('주사위') && stringmsg.includes('2') || stringmsg.includes('주사위') && stringmsg.includes('3') || stringmsg.includes('주사위') && stringmsg.includes('4') || stringmsg.includes('주사위') && stringmsg.includes('5') || stringmsg.includes('주사위') && stringmsg.includes('6')) {
-    //     return '주사위 게임 N'
-    // }
     else if (stringmsg.includes('주사위') && stringmsg.includes('게임')) {
         return '주사위 게임'
     }
