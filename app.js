@@ -66,9 +66,10 @@ function find_info() {
     for (var i = 0; i < detect_id.length; i++) {
         if (detect_id[i].includes(id)) {
             result = class_info(detect_id[i])[1]
-        } else {
-            result = 'no info'
         }
+    }
+    if(result == null){
+        result = 'no info'
     }
     return result
 }
