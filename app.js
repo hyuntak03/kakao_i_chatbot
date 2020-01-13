@@ -1264,28 +1264,28 @@ app.use(bodyParser.urlencoded({
 
 app.use('/api', apiRouter);
 
-apiRouter.post('/test', function (req, res) {
-    //console.log(req.body);
-    var msg = req.body.userRequest.utterance;
-    var userid = req.body.userRequest.user.id;
-    var userlang = req.body.userRequest.lang;
-    console.log(msg);
+// apiRouter.post('/test', function (req, res) {
+//     //console.log(req.body);
+//     var msg = req.body.userRequest.utterance;
+//     var userid = req.body.userRequest.user.id;
+//     var userlang = req.body.userRequest.lang;
+//     console.log(msg);
 
-    const responseBody = {
-        version: "2.0",
-        template: {
-            outputs: [
-                {
-                    simpleText: {
-                        text: msg
-                    }
-                }
-            ]
-        }
-    };
+//     const responseBody = {
+//         version: "2.0",
+//         template: {
+//             outputs: [
+//                 {
+//                     simpleText: {
+//                         text: msg
+//                     }
+//                 }
+//             ]
+//         }
+//     };
 
-    res.status(200).send(responseBody);
-});
+//     res.status(200).send(responseBody);
+// });
 
 function add(a) {
     return function (b) {
