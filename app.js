@@ -71,10 +71,40 @@ function find_info() {
     return result
 }
 
+function find_grade(){
+    return find_num(find_info())[0]
+}
+
 function class_info(str) {
     str = str.toString().split(':')
     return str;
 }
+
+// function predict_score(subject,score) {
+//     var sc = fs.readFileSync(subject,'utf8').toString().split('\n')
+//     var save
+//     var result
+//     for(var i = 0; i < sc.sort().length ; i++){
+//         save += sc.sort()[i] + '\n'
+//         if(score == sc.sort[i]){
+//             if(((i / sc.sort().length) * 100) <= 4){
+//                 result = 1
+//             }else if(((i / sc.sort().length) * 100) <= 11){
+//                 result = 2
+//             }else if(((i / sc.sort().length) * 100) <= 23){
+//                 result = 3
+//             }else if(((i / sc.sort().length) * 100) <= 40){
+//                 result = 4
+//             }else if(((i / sc.sort().length) * 100) <= 60){
+//                 result = 5
+//             }else{
+//                 result = 6
+//             }
+//         }
+//     }
+//     fs.writeFileSync(subject,save)
+//     return result
+// }
 
 var isEmpty = function (value) {
     console.log('function start')
@@ -287,9 +317,22 @@ reactword = function (keymsg, msg, callback) {
     var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8')
     var detect_id = student_info.toString().split('\n')
 
-    var first_grade_score = fs.readFileSync('./exam_score/1_grade_score.txt', 'utf8')
-    var second_grade_socre = fs.readFileSync('./exam_score/2_grade_score.txt', 'utf8')
-    var third_grade_socre = fs.readFileSync('./exam_score/3_grade_score.txt', 'utf8')
+    var first_grade_language = fs.readFileSync('./exam_score/1_grade/language.txt', 'utf8')
+    var first_grade_math = fs.readFileSync('./exam_score/1_grade/math.txt', 'utf8')
+    var first_grade_society = fs.readFileSync('./exam_score/1_grade/society.txt', 'utf8')
+    var first_grade_science = fs.readFileSync('./exam_score/1_grade/science.txt', 'utf8')
+    var first_grade_eng = fs.readFileSync('./exam_score/1_grade/eng.txt', 'utf8')
+    var first_grade_history = fs.readFileSync('./exam_score/1_grade/history.txt', 'utf8')
+
+    var second_grade_language = fs.readFileSync('./exam_score/2_grade/language.txt', 'utf8')
+    var second_grade_math_1 = fs.readFileSync('./exam_score/2_grade/math_1.txt', 'utf8')
+    var second_grade_math_2 = fs.readFileSync('./exam_score/2_grade/math_2.txt', 'utf8')
+    var second_grade_math_probability = fs.readFileSync('./exam_score/2_grade/math_probability.txt', 'utf8')
+    var second_grade_physics = fs.readFileSync('./exam_score/2_grade/physics.txt', 'utf8')
+    var second_grade_chemical = fs.readFileSync('./exam_score/2_grade/chemical.txt', 'utf8')
+    var second_grade_biology = fs.readFileSync('./exam_score/2_grade/biology.txt', 'utf8')
+    var second_grade_earth = fs.readFileSync('./exam_score/2_grade/earth.txt', 'utf8')
+    var second_grade_eng = fs.readFileSync('./exam_score/2_grade/eng.txt', 'utf8')
 
     for (var i = 0; i < detect.length; i++) {
         if (msg.includes(detect[i])) {
@@ -367,6 +410,38 @@ reactword = function (keymsg, msg, callback) {
             break;
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
+            break;
+        case '등급':
+            var add_ment
+            if(find_grade() == 1){
+                add_ment = '아래의 형식과 같이 점수를 입력해주세요.\n\n국어,수학,통합사회,통합과학,영어,역사\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
+            }else if(find_grade() == 2){
+                add_ment = '아래의 형식과 같이 점수를 입력해주세요.\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
+            }
+            answer = '챗봇 예상 등급 기능을 이용해주셔서 감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.'
+            addans = add_ment
+            break;
+        case 'predict':
+            var score
+            if(find_grade() == 1){
+                var language,math,society,science,eng,history
+                score = msg.split(',')
+                language = first_grade_language + '\n' + score[0]
+                math = first_grade_math + '\n' + score[1]
+                society = first_grade_society + '\n' + score[2]
+                science = first_grade_science + '\n' + score[3]
+                eng = first_grade_eng + '\n' + score[4]
+                history = first_grade_history + '\n' + score[5]
+                fs.writeFileSync('./exam_score/1_grade/language.txt',language)
+                fs.writeFileSync('./exam_score/1_grade/math.txt',math)
+                fs.writeFileSync('./exam_score/1_grade/society.txt',society)
+                fs.writeFileSync('./exam_score/1_grade/science.txt',science)
+                fs.writeFileSync('./exam_score/1_grade/eng.txt',eng)
+                fs.writeFileSync('./exam_score/1_grade/history.txt',history)
+            }
+            break;
+        case 'score_read':
+            answer = first_grade_language.toString()
             break;
         case '시간표':
             if (find_info() == 'no info') {
