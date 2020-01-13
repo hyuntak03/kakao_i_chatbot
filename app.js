@@ -153,6 +153,12 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('급식')) {
         return '급식'
     }
+    else if (stringmsg.startsWith('(갤러리)페이지 ')) {
+        return '갤러리N'
+    }
+    else if (stringmsg.includes('갤러리')) {
+        return '갤러리'
+    }
     else if (stringmsg.includes('안녕') || stringmsg.includes('ㅎㅇ') || stringmsg.includes('안뇽') || stringmsg.includes('하이')) {
         return '안녕'
     }
@@ -192,6 +198,9 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('1') && stringmsg.includes('예측하기') || stringmsg.includes('2') && stringmsg.includes('예측하기') || stringmsg.includes('3') && stringmsg.includes('예측하기') || stringmsg.includes('4') && stringmsg.includes('예측하기') || stringmsg.includes('5') && stringmsg.includes('예측하기') || stringmsg.includes('6') && stringmsg.includes('예측하기')) {
         return '주사위 게임 N'
     }
+    // else if (stringmsg.includes('주사위') && stringmsg.includes('1') || stringmsg.includes('주사위') && stringmsg.includes('2') || stringmsg.includes('주사위') && stringmsg.includes('3') || stringmsg.includes('주사위') && stringmsg.includes('4') || stringmsg.includes('주사위') && stringmsg.includes('5') || stringmsg.includes('주사위') && stringmsg.includes('6')) {
+    //     return '주사위 게임 N'
+    // }
     else if (stringmsg.includes('주사위') && stringmsg.includes('게임')) {
         return '주사위 게임'
     }
@@ -358,9 +367,9 @@ reactword = function (keymsg, msg, callback) {
             answer = '욕은하지 말아주세요 ㅠㅠ'
             break;
         case '시간표':
-            if(find_info == 'no info'){
+            if (find_info == 'no info') {
                 answer = '학생정보를 설정해주세요'
-            }else {
+            } else {
                 answer = '요일을 선택해주세요'
                 buttons = ['월', '화', '수', '목', '금']
                 buttoncore = ['월', '화', '수', '목', '금']
@@ -697,10 +706,10 @@ reactword = function (keymsg, msg, callback) {
                 if (today_Notice == null) {
                     today_Notice = '오늘은 특별한 일정이 없네요!'
                     console.log('no Notice')
-                } else if(today_Notice.includes('방학')) {
+                } else if (today_Notice.includes('방학')) {
                     today_Notice = '즐거운 방학 보내세요~'
                     console.log(today_Notice)
-                } 
+                }
                 answer = today_Notice;
                 buttons = ['메뉴 보기', '다른날 일정도 보기']
                 buttoncore = ['메뉴 보기', '다른날 일정도 보기']
@@ -1264,28 +1273,28 @@ app.use(bodyParser.urlencoded({
 
 app.use('/api', apiRouter);
 
-// apiRouter.post('/test', function (req, res) {
-//     //console.log(req.body);
-//     var msg = req.body.userRequest.utterance;
-//     var userid = req.body.userRequest.user.id;
-//     var userlang = req.body.userRequest.lang;
-//     console.log(msg);
+apiRouter.post('/test', function (req, res) {
+    //console.log(req.body);
+    var msg = req.body.userRequest.utterance;
+    var userid = req.body.userRequest.user.id;
+    var userlang = req.body.userRequest.lang;
+    console.log(msg);
 
-//     const responseBody = {
-//         version: "2.0",
-//         template: {
-//             outputs: [
-//                 {
-//                     simpleText: {
-//                         text: msg
-//                     }
-//                 }
-//             ]
-//         }
-//     };
+    const responseBody = {
+        version: "2.0",
+        template: {
+            outputs: [
+                {
+                    simpleText: {
+                        text: msg
+                    }
+                }
+            ]
+        }
+    };
 
-//     res.status(200).send(responseBody);
-// });
+    res.status(200).send(responseBody);
+});
 
 function add(a) {
     return function (b) {
@@ -1373,6 +1382,4 @@ var port = process.env.PORT || 3000;
 app.listen(port, function () {
     console.log('서버 실행중...');
 });
-
-
 
