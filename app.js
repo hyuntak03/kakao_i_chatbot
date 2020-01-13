@@ -1305,11 +1305,11 @@ apiRouter.post('/switch', function (req, res) {
     var userlang = req.body.userRequest.lang;
     var keyword = detectword(msg);
     console.log(msg);
-    // if (userid == '7f040c0d6890bf086333ac722bd436d1cbcbf5efb765623aa9ab4be4f773232aba') {
-    //     fs.writeFileSync('psw.txt', 'admin', 'utf8')
-    // } else {
-    //     fs.writeFileSync('psw.txt', makepsw(), 'utf8')
-    // }
+    if (userid == '7f040c0d6890bf086333ac722bd436d1cbcbf5efb765623aa9ab4be4f773232aba') {
+        fs.writeFileSync('psw.txt', 'admin', 'utf8')
+    } else {
+        fs.writeFileSync('psw.txt', makepsw(), 'utf8')
+    }
     reactword(keyword, msg, reaction => {
         var answer = reaction[0];
         var buttons = reaction[1];
