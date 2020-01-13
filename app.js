@@ -62,14 +62,11 @@ function makepsw() {
 function find_info() {
     var student_info = fs.readFileSync('student_info.txt', 'utf8')
     var detect_id = student_info.split('\n')
-
+    var result = 'no info'
     for (var i = 0; i < detect_id.length; i++) {
         if (detect_id[i].includes(id)) {
             result = class_info(detect_id[i])[1]
         }
-    }
-    if(result == null){
-        result = 'no info'
     }
     return result
 }
