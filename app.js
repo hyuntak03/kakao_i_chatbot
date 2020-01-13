@@ -443,9 +443,9 @@ reactword = function (keymsg, msg, callback) {
         //         fs.writeFileSync('./exam_score/1_grade/history.txt',history)
         //     }
         //     break;
-        case 'score_read':
-            answer = first_grade_language.toString()
-            break;
+        // case 'score_read':
+        //     answer = first_grade_language.toString()
+        //     break;
         case '시간표':
             if (find_info() == 'no info') {
                 answer = '학생정보를 설정해주세요'
