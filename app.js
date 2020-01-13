@@ -320,12 +320,12 @@ reactword = function (keymsg, msg, callback) {
     var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8')
     var detect_id = student_info.toString().split('\n')
 
-    var first_grade_language = fs.readFileSync('./exam_score/1_grade/language.txt', 'utf8')
-    var first_grade_math = fs.readFileSync('./exam_score/1_grade/math.txt', 'utf8')
-    var first_grade_society = fs.readFileSync('./exam_score/1_grade/society.txt', 'utf8')
-    var first_grade_science = fs.readFileSync('./exam_score/1_grade/science.txt', 'utf8')
-    var first_grade_eng = fs.readFileSync('./exam_score/1_grade/eng.txt', 'utf8')
-    var first_grade_history = fs.readFileSync('./exam_score/1_grade/history.txt', 'utf8')
+    // var first_grade_language = fs.readFileSync('./exam_score/1_grade/language.txt', 'utf8')
+    // var first_grade_math = fs.readFileSync('./exam_score/1_grade/math.txt', 'utf8')
+    // var first_grade_society = fs.readFileSync('./exam_score/1_grade/society.txt', 'utf8')
+    // var first_grade_science = fs.readFileSync('./exam_score/1_grade/science.txt', 'utf8')
+    // var first_grade_eng = fs.readFileSync('./exam_score/1_grade/eng.txt', 'utf8')
+    // var first_grade_history = fs.readFileSync('./exam_score/1_grade/history.txt', 'utf8')
 
     // var second_grade_language = fs.readFileSync('./exam_score/2_grade/language.txt', 'utf8')
     // var second_grade_math_1 = fs.readFileSync('./exam_score/2_grade/math_1.txt', 'utf8')
@@ -422,7 +422,7 @@ reactword = function (keymsg, msg, callback) {
                 add_ment = '아래의 형식과 같이 점수를 입력해주세요.\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
             }
             answer = '챗봇 예상 등급 기능을 이용해주셔서 감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.'
-            //addans = add_ment
+            addans = add_ment
             break;
         // case 'predict':
         //     var score
