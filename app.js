@@ -1370,11 +1370,9 @@ apiRouter.post('/switch', function (req, res) {
 });
 
 var port = process.env.PORT || 3000;
-// app.listen(port, function () {
-//     console.log('서버 실행중...');
-// });
-app.listen(9000, function () {
+app.listen(port, function () {
     console.log('서버 실행중...');
 });
+
 
 
