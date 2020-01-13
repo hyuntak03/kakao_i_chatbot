@@ -424,25 +424,25 @@ reactword = function (keymsg, msg, callback) {
             answer = '챗봇 예상 등급 기능을 이용해주셔서 감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.'
             addans = add_ment
             break;
-        case 'predict':
-            var score
-            if(find_grade() == 1){
-                var language,math,society,science,eng,history
-                score = msg.split(',')
-                language = first_grade_language + '\n' + score[0]
-                math = first_grade_math + '\n' + score[1]
-                society = first_grade_society + '\n' + score[2]
-                science = first_grade_science + '\n' + score[3]
-                eng = first_grade_eng + '\n' + score[4]
-                history = first_grade_history + '\n' + score[5]
-                fs.writeFileSync('./exam_score/1_grade/language.txt',language)
-                fs.writeFileSync('./exam_score/1_grade/math.txt',math)
-                fs.writeFileSync('./exam_score/1_grade/society.txt',society)
-                fs.writeFileSync('./exam_score/1_grade/science.txt',science)
-                fs.writeFileSync('./exam_score/1_grade/eng.txt',eng)
-                fs.writeFileSync('./exam_score/1_grade/history.txt',history)
-            }
-            break;
+        // case 'predict':
+        //     var score
+        //     if(find_grade() == 1){
+        //         var language,math,society,science,eng,history
+        //         score = msg.split(',')
+        //         language = first_grade_language + '\n' + score[0]
+        //         math = first_grade_math + '\n' + score[1]
+        //         society = first_grade_society + '\n' + score[2]
+        //         science = first_grade_science + '\n' + score[3]
+        //         eng = first_grade_eng + '\n' + score[4]
+        //         history = first_grade_history + '\n' + score[5]
+        //         fs.writeFileSync('./exam_score/1_grade/language.txt',language)
+        //         fs.writeFileSync('./exam_score/1_grade/math.txt',math)
+        //         fs.writeFileSync('./exam_score/1_grade/society.txt',society)
+        //         fs.writeFileSync('./exam_score/1_grade/science.txt',science)
+        //         fs.writeFileSync('./exam_score/1_grade/eng.txt',eng)
+        //         fs.writeFileSync('./exam_score/1_grade/history.txt',history)
+        //     }
+        //     break;
         case 'score_read':
             answer = first_grade_language.toString()
             break;
