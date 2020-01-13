@@ -320,12 +320,12 @@ reactword = function (keymsg, msg, callback) {
     var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8')
     var detect_id = student_info.toString().split('\n')
 
-    var first_grade_language = fs.readFileSync('./exam_score/1_grade/language.txt', 'utf8')
-    var first_grade_math = fs.readFileSync('./exam_score/1_grade/math.txt', 'utf8')
-    var first_grade_society = fs.readFileSync('./exam_score/1_grade/society.txt', 'utf8')
-    var first_grade_science = fs.readFileSync('./exam_score/1_grade/science.txt', 'utf8')
-    var first_grade_eng = fs.readFileSync('./exam_score/1_grade/eng.txt', 'utf8')
-    var first_grade_history = fs.readFileSync('./exam_score/1_grade/history.txt', 'utf8')
+    // var first_grade_language = fs.readFileSync('./exam_score/1_grade/language.txt', 'utf8')
+    // var first_grade_math = fs.readFileSync('./exam_score/1_grade/math.txt', 'utf8')
+    // var first_grade_society = fs.readFileSync('./exam_score/1_grade/society.txt', 'utf8')
+    // var first_grade_science = fs.readFileSync('./exam_score/1_grade/science.txt', 'utf8')
+    // var first_grade_eng = fs.readFileSync('./exam_score/1_grade/eng.txt', 'utf8')
+    // var first_grade_history = fs.readFileSync('./exam_score/1_grade/history.txt', 'utf8')
 
     // var second_grade_language = fs.readFileSync('./exam_score/2_grade/language.txt', 'utf8')
     // var second_grade_math_1 = fs.readFileSync('./exam_score/2_grade/math_1.txt', 'utf8')
