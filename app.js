@@ -371,8 +371,8 @@ reactword = function (keymsg, msg, callback) {
         case '시간표':
             if (find_info() == 'no info') {
                 answer = '학생정보를 설정해주세요'
-                buttons = ['학생정보 설정']
-                buttoncore = ['학생정보 설정']
+                buttons = ['학생정보 설정', '메뉴']
+                buttoncore = ['학생정보 설정', '메뉴']
             } else {
                 answer = '요일을 선택해주세요'
                 buttons = ['월', '화', '수', '목', '금']
