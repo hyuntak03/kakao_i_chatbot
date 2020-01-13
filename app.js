@@ -60,7 +60,7 @@ function makepsw() {
 }
 
 function find_info() {
-    var student_info = fs.readFileSync('student_info.txt', 'utf8')
+    var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8')
     var detect_id = student_info.split('\n')
     var result = 'no info'
     for (var i = 0; i < detect_id.length; i++) {
@@ -274,18 +274,22 @@ reactword = function (keymsg, msg, callback) {
     var returnstatement = '돌아왔습니다!';
     var addnewmentstatement = '[말 추가하기] \n\n자신이 원하는 대답을 들을수 있도록 할 수 있어요! \n\n~~ 라 하면 ~~ 라고 해 \n와 같이 말해주세요!';
 
-    var mentsread = fs.readFileSync('ments.txt', 'utf8');
+    var mentsread = fs.readFileSync('./ments/ments.txt', 'utf8');
     var mentsarr = mentsread.split('\n');
     //console.log('커스텀 멘트목록:' + mentsarr);
-    var bad_words = fs.readFileSync('bad_words.txt', 'utf8')
+    var bad_words = fs.readFileSync('./ments/bad_words.txt', 'utf8')
     var detect = bad_words.toString().split(' ');
 
-    var psw = fs.readFileSync('psw.txt', 'utf8')
+    var psw = fs.readFileSync('./admin_psw/psw.txt', 'utf8')
 
-    var ments = fs.readFileSync('ments.txt', 'utf8')
+    var ments = fs.readFileSync('./ments/ments.txt', 'utf8')
 
-    var student_info = fs.readFileSync('student_info.txt', 'utf8')
+    var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8')
     var detect_id = student_info.toString().split('\n')
+
+    var first_grade_score = fs.readFileSync('./exam_score/1_grade_score.txt', 'utf8')
+    var second_grade_socre = fs.readFileSync('./exam_score/2_grade_score.txt', 'utf8')
+    var third_grade_socre = fs.readFileSync('./exam_score/3_grade_score.txt', 'utf8')
 
     for (var i = 0; i < detect.length; i++) {
         if (msg.includes(detect[i])) {
@@ -327,8 +331,8 @@ reactword = function (keymsg, msg, callback) {
             break;
         case '학생정보 설정 완료':
             msg = find_num(msg)[0].toString() + '-' + find_num(msg)[1].toString()
-            var student_info = fs.readFileSync('student_info.txt', 'utf8') + '\n' + id + ':' + msg
-            fs.writeFileSync('student_info.txt', student_info);
+            var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8') + '\n' + id + ':' + msg
+            fs.writeFileSync('./student_information/student_info.txt', student_info);
             answer = '학년 설정이 완료되었습니다'
             break;
         case 'test':
@@ -353,7 +357,7 @@ reactword = function (keymsg, msg, callback) {
         case 'ments_del_psw':
             if (psw == 'admin') {
                 answer = '모든 멘트들이 삭제되었습니다'
-                fs.writeFileSync('ments.txt', '', 'utf8')
+                fs.writeFileSync('./ments/ments.txt', '', 'utf8')
             } else {
                 answer = '관리자만 이 명령어를 사용할수 있습니다!'
             }
@@ -1194,8 +1198,8 @@ reactword = function (keymsg, msg, callback) {
                 console.log('mentoutput=_' + mentoutput + '_');
                 mentres = mentinput + ' 라고 말하시면 ' + mentoutput + ' 라고 답할께요!';
                 if (mentsarr.length <= 5000) {
-                    var mentwrite = fs.readFileSync('ments.txt', 'utf8') + ' \n' + mentinput + '=' + mentoutput;
-                    fs.writeFileSync('ments.txt', mentwrite);
+                    var mentwrite = fs.readFileSync('./ments/ments.txt', 'utf8') + ' \n' + mentinput + '=' + mentoutput;
+                    fs.writeFileSync('./ments/ments.txt', mentwrite);
                 }
                 else {
                     mentres = '대답 목록이 이미 꽉 차버렸어요...'
@@ -1315,9 +1319,9 @@ apiRouter.post('/switch', function (req, res) {
     var keyword = detectword(msg);
     console.log(msg);
     if (userid == '7f040c0d6890bf086333ac722bd436d1cbcbf5efb765623aa9ab4be4f773232aba') {
-        fs.writeFileSync('psw.txt', 'admin', 'utf8')
+        fs.writeFileSync('./admin_psw/psw.txt', 'admin', 'utf8')
     } else {
-        fs.writeFileSync('psw.txt', makepsw(), 'utf8')
+        fs.writeFileSync('./admin_psw/psw.txt', makepsw(), 'utf8')
     }
     reactword(keyword, msg, reaction => {
         var answer = reaction[0];
