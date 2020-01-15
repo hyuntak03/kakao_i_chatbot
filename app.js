@@ -71,7 +71,7 @@ function find_info() {
     return result
 }
 
-function find_grade(){
+function find_grade() {
     var result = find_num(find_info())[0].toString()
     return result
 }
@@ -81,30 +81,30 @@ function class_info(str) {
     return str;
 }
 
-function predict_score(subject,subject_file,score){
-    var result,rank,people_num,ranking
-    var file = fs.readFileSync(subject_file,'utf8')
-    for(var i = 0; i< file.length; i++){
-        if(file.sort()[i].includes(score)){
-            rank = i
-            people_num = file.length
-            if((file.length - i)/file.length*100 <= 4){
+function predict_score(subject, subject_file, score) {
+    var result, rank, people_num, ranking
+    var file = fs.readFileSync(subject_file, 'utf8').toString().split('\n')
+    for (var i = 0; i < file.length; i++) {
+        if (file.sort()[i] == score) {
+            people_num = file.length - 1
+            rank = people_num - (i - 1)
+            if ((people_num - i) / file.length * 100 <= 4) {
                 ranking = 1
-            }else if((file.length - i)/file.length*100 <= 11) {
+            } else if (rank / people_num * 100 <= 11) {
                 ranking = 2
-            }else if((file.length - i)/file.length*100 <= 23){
+            } else if (rank / people_num * 100 <= 23) {
                 ranking = 3
-            }else if((file.length - i)/file.length*100 <= 40){
+            } else if (rank / people_num * 100 <= 40) {
                 ranking = 4
-            }else if((file.length - i)/file.length*100 <= 60){
+            } else if (rank / people_num * 100 <= 60) {
                 ranking = 5
-            }else if((file.length - i)/file.length*100 <= 77){
+            } else if (rank / people_num * 100 <= 77) {
                 ranking = 6
-            }else if((file.length - i)/file.length*100 <= 89){
+            } else if (rank / people_num * 100 <= 89) {
                 ranking = 7
-            }else if((file.length - i)/file.length*100 <= 96){
+            } else if (rank / people_num * 100 <= 96) {
                 ranking = 8
-            }else{
+            } else {
                 ranking = 9
             }
         }
@@ -112,32 +112,6 @@ function predict_score(subject,subject_file,score){
     result = '과목: ' + subject + '\n총 인원: ' + people_num + '\n등수: ' + rank + '\n등급: ' + ranking + '\n\n'
     return result
 }
-
-// function predict_score(subject,score) {
-//     var sc = fs.readFileSync(subject,'utf8').toString().split('\n')
-//     var save
-//     var result
-//     for(var i = 0; i < sc.sort().length ; i++){
-//         save += sc.sort()[i] + '\n'
-//         if(score == sc.sort[i]){
-//             if(((i / sc.sort().length) * 100) <= 4){
-//                 result = 1
-//             }else if(((i / sc.sort().length) * 100) <= 11){
-//                 result = 2
-//             }else if(((i / sc.sort().length) * 100) <= 23){
-//                 result = 3
-//             }else if(((i / sc.sort().length) * 100) <= 40){
-//                 result = 4
-//             }else if(((i / sc.sort().length) * 100) <= 60){
-//                 result = 5
-//             }else{
-//                 result = 6
-//             }
-//         }
-//     }
-//     fs.writeFileSync(subject,save)
-//     return result
-// }
 
 var isEmpty = function (value) {
     console.log('function start')
@@ -315,7 +289,7 @@ function detectword(stringmsg) {
         return 'ments_del_psw'
     } else if (stringmsg.includes('-') && stringmsg.includes('반')) {
         return '학생정보 설정 완료'
-    } else if (stringmsg.includes(',')){
+    } else if (stringmsg.includes(',')) {
         return 'predict'
     }
     else {
@@ -354,7 +328,7 @@ reactword = function (keymsg, msg, callback) {
 
     var first_grade_language = fs.readFileSync('./exam_score/1_grade/language.txt', 'utf8')
     var first_grade_math = fs.readFileSync('./exam_score/1_grade/math.txt', 'utf8')
-    var first_grade_society = fs.readFileSync('./exam_score/1_grade/social.txt', 'utf8')
+    var first_grade_social = fs.readFileSync('./exam_score/1_grade/social.txt', 'utf8')
     var first_grade_science = fs.readFileSync('./exam_score/1_grade/science.txt', 'utf8')
     var first_grade_eng = fs.readFileSync('./exam_score/1_grade/eng.txt', 'utf8')
     var first_grade_history = fs.readFileSync('./exam_score/1_grade/history.txt', 'utf8')
@@ -448,19 +422,23 @@ reactword = function (keymsg, msg, callback) {
             break;
         case '등급':
             var add_ment
-            if(find_grade() == '1'){
-                add_ment = '아래의 형식과 같이 점수를 입력해주세요.\n\n국어,수학,통합사회,통합과학,영어,역사\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
-            }else if(find_grade() == '2'){
-                add_ment = '아래의 형식과 같이 점수를 입력해주세요.\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
+            var ans = '챗봇 예상 등급 기능을 이용해주셔서  감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.'
+            if (find_grade() == '1') {
+                addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n국어,수학,통합사회,통합과학,영어,역사\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
+            } else if (find_grade() == '2') {
+                addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
+            } else if (find_grade() == '3') {
+
+            }else {
+                ans = '학생정보를 설정해주세요.'
             }
-            answer = '챗봇 예상 등급 기능을 이용해주셔서  감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.'
-            addans = add_ment
+            answer = ans
             break;
         case 'predict':
             var score
-            if(find_grade() == 1){
-                var language,math,society,science,eng,history
-                var language_ment,math_ment,society_ment,science_ment,eng_ment,history_ment
+            if (find_grade() == 1) {
+                var language, math, social, science, eng, history
+                var language_ment, math_ment, social_ment, science_ment, eng_ment, history_ment
                 score = msg.split(',')
                 language = first_grade_language + '\n' + score[0]
                 math = first_grade_math + '\n' + score[1]
@@ -468,18 +446,48 @@ reactword = function (keymsg, msg, callback) {
                 science = first_grade_science + '\n' + score[3]
                 eng = first_grade_eng + '\n' + score[4]
                 history = first_grade_history + '\n' + score[5]
-                fs.writeFileSync('./exam_score/1_grade/language.txt',language)
-                fs.writeFileSync('./exam_score/1_grade/math.txt',math)
-                fs.writeFileSync('./exam_score/1_grade/social.txt',social)
-                fs.writeFileSync('./exam_score/1_grade/science.txt',science)
-                fs.writeFileSync('./exam_score/1_grade/eng.txt',eng)
-                fs.writeFileSync('./exam_score/1_grade/history.txt',history)
-                language_ment = predict_score('국어','./exam_score/1_grade/language.txt',score[0])
-                math_ment = predict_score('수학','./exam_score/1_grade/math.txt',score[1])
-                social_ment = predict_score('사회','./exam_score/1_grade/social.txt',score[2])
-                science_ment = predict_score('통합과학','./exam_score/1_grade/science.txt',score[3])
-                eng_ment = predict_score('영어','./exam_score/1_grade/eng.txt',score[4])
-                history_ment = predict_score('한국사','./exam_score/1_grade/history.txt',score[5])
+
+                if (first_grade_language.includes(score[0])) {
+                    fs.writeFileSync('./exam_score/1_grade/language.txt', first_grade_language + '\n')
+                } else {
+                    fs.writeFileSync('./exam_score/1_grade/language.txt', language)
+                }
+
+                if (first_grade_math.includes(score[1])) {
+                    fs.writeFileSync('./exam_score/1_grade/math.txt', first_grade_math + '\n')
+                } else {
+                    fs.writeFileSync('./exam_score/1_grade/math.txt', math)
+                }
+
+                if (first_grade_social.includes(score[2])) {
+                    fs.writeFileSync('./exam_score/1_grade/social.txt', first_grade_social + '\n')
+                } else {
+                    fs.writeFileSync('./exam_score/1_grade/social.txt', social)
+                }
+
+                if (first_grade_science.includes(score[3])) {
+                    fs.writeFileSync('./exam_score/1_grade/science.txt', first_grade_science + '\n')
+                } else {
+                    fs.writeFileSync('./exam_score/1_grade/science.txt', science)
+                }
+
+                if (first_grade_eng.includes(score[4])) {
+                    fs.writeFileSync('./exam_score/1_grade/eng.txt', first_grade_eng + '\n')
+                } else {
+                    fs.writeFileSync('./exam_score/1_grade/eng.txt', eng)
+                }
+
+                if (first_grade_history.includes(score[5])) {
+                    fs.writeFileSync('./exam_score/1_grade/history.txt', first_grade_history + '\n')
+                } else {
+                    fs.writeFileSync('./exam_score/1_grade/history.txt', history)
+                }
+                language_ment = predict_score('국어', './exam_score/1_grade/language.txt', score[0])
+                math_ment = predict_score('수학', './exam_score/1_grade/math.txt', score[1])
+                social_ment = predict_score('사회', './exam_score/1_grade/social.txt', score[2])
+                science_ment = predict_score('통합과학', './exam_score/1_grade/science.txt', score[3])
+                eng_ment = predict_score('영어', './exam_score/1_grade/eng.txt', score[4])
+                history_ment = predict_score('한국사', './exam_score/1_grade/history.txt', score[5])
                 answer = language_ment + math_ment + social_ment + science_ment + eng_ment + history_ment
             }
             break;
