@@ -417,17 +417,19 @@ reactword = function (keymsg, msg, callback) {
             answer = '욕은하지 말아주세요 ㅠㅠ'
             break;
         case '등급':
-            var add_ment
-            var ans = '챗봇 예상 등급 기능을 이용해주셔서  감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.'
-            if (find_grade() == '1') {
+            var ans = '챗봇 예상 등급 기능을 이용해주셔서  감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.\n\n입력된 점수는 암호화되어 보호됩니다.'
+            if(find_info == 'no info'){
+                answer = '학생정보를 설정해주세요.'
+                buttons = ['학생정보 설정', '메뉴']
+                buttoncore = ['학생정보 설정', '메뉴']
+            }else if (find_grade() == '1') {
+                answer = ans
                 addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n국어,수학,통합사회,통합과학,영어,역사\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
             } else if (find_grade() == '2') {
+                answer = ans
                 addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
             } else if (find_grade() == '3') {
-            }else if (find_info() == 'no info') {
-                ans = '학생정보를 설정해주세요.'
             }
-            answer = ans
             break;
         case 'predict':
             var score
