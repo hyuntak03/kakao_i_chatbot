@@ -43,6 +43,7 @@ function find_num(str) {
     var num = str.replace(/[^0-9]/g, "")
     return num;
 }
+
 function randomnum(startnum, endnum) {
     var randint = Math.floor(Math.random() * (endnum - startnum + 1));
     if (randint == (endnum - startnum + 1)) {
@@ -50,6 +51,7 @@ function randomnum(startnum, endnum) {
     }
     return (randint + startnum);
 }
+
 function makepsw() {
     var psw = ""
     var rand = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -233,9 +235,6 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('1') && stringmsg.includes('예측하기') || stringmsg.includes('2') && stringmsg.includes('예측하기') || stringmsg.includes('3') && stringmsg.includes('예측하기') || stringmsg.includes('4') && stringmsg.includes('예측하기') || stringmsg.includes('5') && stringmsg.includes('예측하기') || stringmsg.includes('6') && stringmsg.includes('예측하기')) {
         return '주사위 게임 N'
     }
-    // else if (stringmsg.includes('주사위') && stringmsg.includes('1') || stringmsg.includes('주사위') && stringmsg.includes('2') || stringmsg.includes('주사위') && stringmsg.includes('3') || stringmsg.includes('주사위') && stringmsg.includes('4') || stringmsg.includes('주사위') && stringmsg.includes('5') || stringmsg.includes('주사위') && stringmsg.includes('6')) {
-    //     return '주사위 게임 N'
-    // }
     else if (stringmsg.includes('주사위') && stringmsg.includes('게임')) {
         return '주사위 게임'
     }
@@ -275,9 +274,6 @@ function detectword(stringmsg) {
     else if (stringmsg.includes('학년')) {
         return 'N학년'
     }
-    //else if (stringmsg.includes('-') && stringmsg.includes('반')) {
-    //  return 'N-N'
-    //}
     else if (stringmsg.includes('시간표') && ('보기')) {
         return '시간표'
     }
@@ -428,9 +424,8 @@ reactword = function (keymsg, msg, callback) {
             } else if (find_grade() == '2') {
                 addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
             } else if (find_grade() == '3') {
-            }else {
+            }else if (find_grade() == null) {
                 ans = '학생정보를 설정해주세요.'
-                addans = ''
             }
             answer = ans
             break;
