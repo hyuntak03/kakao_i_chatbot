@@ -428,9 +428,9 @@ reactword = function (keymsg, msg, callback) {
             } else if (find_grade() == '2') {
                 addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
             } else if (find_grade() == '3') {
-
             }else {
                 ans = '학생정보를 설정해주세요.'
+                addans = ''
             }
             answer = ans
             break;
