@@ -418,7 +418,7 @@ reactword = function (keymsg, msg, callback) {
             break;
         case '등급':
             var ans = '챗봇 예상 등급 기능을 이용해주셔서  감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.\n\n입력된 점수는 암호화되어 보호됩니다.'
-            if(find_info == 'no info'){
+            if(find_info() == 'no info'){
                 answer = '학생정보를 설정해주세요.'
                 buttons = ['학생정보 설정', '메뉴']
                 buttoncore = ['학생정보 설정', '메뉴']
