@@ -81,6 +81,38 @@ function class_info(str) {
     return str;
 }
 
+function predict_score(subject,subject_file,score){
+    var result,rank,people_num,ranking
+    var file = fs.readFileSync(subject_file,'utf8')
+    for(var i = 0; i< file.length; i++){
+        if(file.sort()[i].includes(score)){
+            rank = i
+            people_num = file.length
+            if((file.length - i)/file.length*100 <= 4){
+                ranking = 1
+            }else if((file.length - i)/file.length*100 <= 11) {
+                ranking = 2
+            }else if((file.length - i)/file.length*100 <= 23){
+                ranking = 3
+            }else if((file.length - i)/file.length*100 <= 40){
+                ranking = 4
+            }else if((file.length - i)/file.length*100 <= 60){
+                ranking = 5
+            }else if((file.length - i)/file.length*100 <= 77){
+                ranking = 6
+            }else if((file.length - i)/file.length*100 <= 89){
+                ranking = 7
+            }else if((file.length - i)/file.length*100 <= 96){
+                ranking = 8
+            }else{
+                ranking = 9
+            }
+        }
+    }
+    result = '과목: ' + subject + '\n총 인원: ' + people_num + '\n등수: ' + rank + '\n등급: ' + ranking + '\n\n'
+    return result
+}
+
 // function predict_score(subject,score) {
 //     var sc = fs.readFileSync(subject,'utf8').toString().split('\n')
 //     var save
@@ -320,12 +352,12 @@ reactword = function (keymsg, msg, callback) {
     var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8')
     var detect_id = student_info.toString().split('\n')
 
-    // var first_grade_language = fs.readFileSync('./exam_score/1_grade/language.txt', 'utf8')
-    // var first_grade_math = fs.readFileSync('./exam_score/1_grade/math.txt', 'utf8')
-    // var first_grade_society = fs.readFileSync('./exam_score/1_grade/society.txt', 'utf8')
-    // var first_grade_science = fs.readFileSync('./exam_score/1_grade/science.txt', 'utf8')
-    // var first_grade_eng = fs.readFileSync('./exam_score/1_grade/eng.txt', 'utf8')
-    // var first_grade_history = fs.readFileSync('./exam_score/1_grade/history.txt', 'utf8')
+    var first_grade_language = fs.readFileSync('./exam_score/1_grade/language.txt', 'utf8')
+    var first_grade_math = fs.readFileSync('./exam_score/1_grade/math.txt', 'utf8')
+    var first_grade_society = fs.readFileSync('./exam_score/1_grade/social.txt', 'utf8')
+    var first_grade_science = fs.readFileSync('./exam_score/1_grade/science.txt', 'utf8')
+    var first_grade_eng = fs.readFileSync('./exam_score/1_grade/eng.txt', 'utf8')
+    var first_grade_history = fs.readFileSync('./exam_score/1_grade/history.txt', 'utf8')
 
     // var second_grade_language = fs.readFileSync('./exam_score/2_grade/language.txt', 'utf8')
     // var second_grade_math_1 = fs.readFileSync('./exam_score/2_grade/math_1.txt', 'utf8')
@@ -424,28 +456,36 @@ reactword = function (keymsg, msg, callback) {
             answer = '챗봇 예상 등급 기능을 이용해주셔서  감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.'
             addans = add_ment
             break;
-        // case 'predict':
-        //     var score
-        //     if(find_grade() == 1){
-        //         var language,math,society,science,eng,history
-        //         score = msg.split(',')
-        //         language = first_grade_language + '\n' + score[0]
-        //         math = first_grade_math + '\n' + score[1]
-        //         society = first_grade_society + '\n' + score[2]
-        //         science = first_grade_science + '\n' + score[3]
-        //         eng = first_grade_eng + '\n' + score[4]
-        //         history = first_grade_history + '\n' + score[5]
-        //         fs.writeFileSync('./exam_score/1_grade/language.txt',language)
-        //         fs.writeFileSync('./exam_score/1_grade/math.txt',math)
-        //         fs.writeFileSync('./exam_score/1_grade/society.txt',society)
-        //         fs.writeFileSync('./exam_score/1_grade/science.txt',science)
-        //         fs.writeFileSync('./exam_score/1_grade/eng.txt',eng)
-        //         fs.writeFileSync('./exam_score/1_grade/history.txt',history)
-        //     }
-        //     break;
-        // case 'score_read':
-        //     answer = first_grade_language.toString()
-        //     break;
+        case 'predict':
+            var score
+            if(find_grade() == 1){
+                var language,math,society,science,eng,history
+                var language_ment,math_ment,society_ment,science_ment,eng_ment,history_ment
+                score = msg.split(',')
+                language = first_grade_language + '\n' + score[0]
+                math = first_grade_math + '\n' + score[1]
+                social = first_grade_social + '\n' + score[2]
+                science = first_grade_science + '\n' + score[3]
+                eng = first_grade_eng + '\n' + score[4]
+                history = first_grade_history + '\n' + score[5]
+                fs.writeFileSync('./exam_score/1_grade/language.txt',language)
+                fs.writeFileSync('./exam_score/1_grade/math.txt',math)
+                fs.writeFileSync('./exam_score/1_grade/social.txt',social)
+                fs.writeFileSync('./exam_score/1_grade/science.txt',science)
+                fs.writeFileSync('./exam_score/1_grade/eng.txt',eng)
+                fs.writeFileSync('./exam_score/1_grade/history.txt',history)
+                language_ment = predict_score('국어','./exam_score/1_grade/language.txt',score[0])
+                math_ment = predict_score('수학','./exam_score/1_grade/math.txt',score[1])
+                social_ment = predict_score('사회','./exam_score/1_grade/social.txt',score[2])
+                science_ment = predict_score('통합과학','./exam_score/1_grade/science.txt',score[3])
+                eng_ment = predict_score('영어','./exam_score/1_grade/eng.txt',score[4])
+                history_ment = predict_score('한국사','./exam_score/1_grade/history.txt',score[5])
+                answer = language_ment + math_ment + social_ment + science_ment + eng_ment + history_ment
+            }
+            break;
+        case 'score_read':
+            answer = first_grade_language.toString()
+            break;
         case '시간표':
             if (find_info() == 'no info') {
                 answer = '학생정보를 설정해주세요'
