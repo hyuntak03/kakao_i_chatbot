@@ -287,6 +287,8 @@ function detectword(stringmsg) {
         return '학생정보 설정 완료'
     } else if (stringmsg.includes(',')) {
         return 'predict'
+    } else if (stringmsg.includes('등급')) {
+        return '등급'
     }
     else {
         return stringmsg;
