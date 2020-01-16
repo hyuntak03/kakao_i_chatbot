@@ -115,6 +115,15 @@ function predict_score(subject, subject_file, score) {
     return result
 }
 
+function del_score() {
+    fs.writeFileSync('./exam_score/1_grade/language.txt','')
+    fs.writeFileSync('./exam_score/1_grade/math.txt','')
+    fs.writeFileSync('./exam_score/1_grade/social.txt','')
+    fs.writeFileSync('./exam_score/1_grade/science.txt','')
+    fs.writeFileSync('./exam_score/1_grade/eng.txt','')
+    fs.writeFileSync('./exam_score/1_grade/history.txt','')
+}
+
 var isEmpty = function (value) {
     console.log('function start')
 
@@ -299,6 +308,9 @@ const timetable = new Timetable();
 var id;
 
 var fs = require('fs');
+
+setInterval(del_score, 1814400000)
+
 reactword = function (keymsg, msg, callback) {
     var answer = '';
     var link = '';
