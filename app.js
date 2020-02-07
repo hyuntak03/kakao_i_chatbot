@@ -313,7 +313,7 @@ var fs = require('fs');
 setInterval(del_score(), 1814400000)
 
 setInterval(function() {
-    http.get("https://kakaoi-chatbot.herokuapp.com/api/switch")
+    console.log("prevent for sleeping")
 }, 600000)
 
 reactword = function (keymsg, msg, callback) {
