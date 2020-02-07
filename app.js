@@ -310,7 +310,7 @@ var id;
 
 var fs = require('fs');
 
-setInterval(del_score(), 1814400000)
+setInterval(del_score, 1814400000)
 
 setInterval(function() {
     console.log("prevent for sleeping")
