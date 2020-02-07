@@ -305,11 +305,16 @@ function detectword(stringmsg) {
 }
 const Timetable = require('comcigan-parser');
 const timetable = new Timetable();
+const http = require('http')
 var id;
 
 var fs = require('fs');
 
-setInterval(del_score, 1814400000)
+setInterval(del_score(), 1814400000)
+
+setInterval(function() {
+    http.get("https://kakaoi-chatbot.herokuapp.com/api/switch")
+}, 600000)
 
 reactword = function (keymsg, msg, callback) {
     var answer = '';
