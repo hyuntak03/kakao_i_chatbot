@@ -965,12 +965,13 @@ reactword = function (keymsg, msg, callback) {
                         month_meal += day + '일: ' + result[day] + ' \n\n'
                     }
                     if (!month_meal) {
-                        month_meal = ''
+                        month_meal = '한달 동안 급식이 없습니다.'
                         Alerge = ''
                     }
                 }
                 //             console.log(month_meal)
-                answer = month_meal + Alerge
+                answer = '🍚한달 급식입니다!'
+                addans = month_meal + Alerge
                 buttons = ['메뉴 보기', '다른날 급식도 보기']
                 buttoncore = ['메뉴 보기', '다른날 급식도 보기']
                 var answerresult = [];
