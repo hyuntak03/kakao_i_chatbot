@@ -407,6 +407,8 @@ reactword = function (keymsg, msg, callback) {
             var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8') + '\n' + id + ':' + info;
             fs.writeFileSync('./student_information/student_info.txt', student_info);
             answer = '학년 설정이 완료되었습니다'
+            buttons = ['메뉴']
+            buttoncore = ['메뉴']
             break;
         case 'test':
             answer = find_info().toString()
@@ -436,7 +438,17 @@ reactword = function (keymsg, msg, callback) {
             }
             break;
         case 'info':
-            answer = student_info;
+            var student = student_info;
+            student = student.split("\n");
+            var info;
+            var result;
+            for(var i = 0; i< student_info.length; i++){
+                info = student_info[i].split(":");
+                if(info[0] == id){
+                    result = info[1];
+                }
+            }
+            answer = "본인 정보: " + result;
             break;
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
