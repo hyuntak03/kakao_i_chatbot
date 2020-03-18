@@ -397,8 +397,12 @@ reactword = function (keymsg, msg, callback) {
             }
             break;
         case '학생정보 설정 완료':
-            msg = find_num(msg)[0].toString() + '-' + find_num(msg)[1].toString()
-            var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8') + '\n' + id + ':' + msg
+            var info;
+            msg = find_num(msg);
+            if(msg[2] != null){
+                info = msg[0] + '-' + msg[1] + msg[2];
+            }
+            var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8') + '\n' + id + ':' + info;
             fs.writeFileSync('./student_information/student_info.txt', student_info);
             answer = '학년 설정이 완료되었습니다'
             break;
