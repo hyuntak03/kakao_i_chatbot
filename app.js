@@ -401,6 +401,8 @@ reactword = function (keymsg, msg, callback) {
             msg = find_num(msg);
             if(msg[2] != null){
                 info = msg[0] + '-' + msg[1] + msg[2];
+            }else {
+                info = msg[0] + '-' + msg[1];
             }
             var student_info = fs.readFileSync('./student_information/student_info.txt', 'utf8') + '\n' + id + ':' + info;
             fs.writeFileSync('./student_information/student_info.txt', student_info);
