@@ -438,17 +438,7 @@ reactword = function (keymsg, msg, callback) {
             }
             break;
         case 'info':
-            var student = student_info;
-            student = student.split("\n");
-            var info;
-            var result;
-            for(var i = 0; i< student_info.length; i++){
-                info = student_info[i].split(":");
-                if(info[0] == id){
-                    result = info[1];
-                }
-            }
-            answer = "본인 정보: " + result;
+            answer = student_info;
             break;
         case 'special case':
             answer = '욕은하지 말아주세요 ㅠㅠ'
