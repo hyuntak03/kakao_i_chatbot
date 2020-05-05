@@ -534,7 +534,12 @@ reactword = function (keymsg, msg, callback) {
             var class_day_info = msg;
             var grade_class = find_info() //ex) 1-2
             var ngrade = find_num(grade_class)[0]
-            var nclass = find_num(grade_class)[1]
+            var nclass;
+            if(find_num(grade_class)[2] != null){
+                nclass = find_num(grade_class)[1] + find_num(grade_class)[2]
+            }else {
+                nclass = find_num(grade_class)[1]
+            }
             console.log(nclass)
             var day;
             var day_num;
