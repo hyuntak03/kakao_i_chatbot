@@ -462,7 +462,7 @@ reactword = function (keymsg, msg, callback) {
             var score
             if (find_grade() == 1) {
                 var language, math, social, science, eng, history
-                var language_ment, math_ment, social_ment, science_ment, eng_ment, history_ment
+                var language_ment, math_ment, social_ment, science_ment, eng_ment, history_ment = "0";
                 score = msg.split(',')
                 language = first_grade_language + '\n' + score[0]
                 math = first_grade_math + '\n' + score[1]
