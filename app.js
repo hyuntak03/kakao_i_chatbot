@@ -314,7 +314,7 @@ setInterval(del_score, 1814400000)
 
 setInterval( function() {
     http.get("https://kakaoi-chatbot.herokuapp.com")
-}, 900000)
+}, 1800000)
 
 reactword = function (keymsg, msg, callback) {
     var answer = '';
