@@ -997,7 +997,7 @@ reactword = function (keymsg, msg, callback) {
             })
             break;
         case '문제점':
-            answer = '문제점이 있군요! \n문제점은https://open.kakao.com/o/sTSRAyeb 여기로 연락부탁드립니다!';
+            answer = '문제점이 있군요! \n문제점은 https://open.kakao.com/o/s6aDxbmc 여기로 연락부탁드립니다!';
             buttons = ['메뉴']
             buttoncore = ['메뉴']
             break;
