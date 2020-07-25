@@ -413,11 +413,6 @@ reactword = function (keymsg, msg, callback) {
         case 'test':
             answer = find_info().toString()
             break;
-        case '성적':
-            answer = '학년을 선택해주세요'
-            buttons = ['1학년 등급', '2학년 등급', '3학년 등급']
-            buttoncore = ['1학년 등급', '2학년 등급', '3학년 등급']
-            break;
         case 'help':
             answer = 'command_list\n\nments_read\nments_del\n\ninfo'
             break;
@@ -464,6 +459,11 @@ reactword = function (keymsg, msg, callback) {
                 var language, math, social, science, eng, history
                 var language_ment, math_ment, social_ment, science_ment, eng_ment, history_ment = "0";
                 score = msg.split(',')
+                for(var i = 0; i < 6; i++){
+                    if(score[i] == null){
+                        score[i] == 0;
+                    }
+                }
                 language = first_grade_language + '\n' + score[0]
                 math = first_grade_math + '\n' + score[1]
                 social = first_grade_social + '\n' + score[2]
