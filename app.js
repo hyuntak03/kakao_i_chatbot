@@ -141,15 +141,6 @@ function detectword(stringmsg) {
     if (stringmsg.charAt(0) == '/') {
         return "/c!@#$%";
     }
-    else if (stringmsg.startsWith('http://dn-m.talk.kakao.com/')) {
-        return 'image//'
-    }
-    else if (stringmsg.includes('번역') || stringmsg.includes('변역')) {
-        return '번역';
-    }
-    else if (stringmsg.includes('계산')) {
-        return '계산';
-    }
     else if (stringmsg.includes('오늘') && stringmsg.includes('급식')) {
         return '오늘 급식';
     }
@@ -198,12 +189,6 @@ function detectword(stringmsg) {
     }
     else if (stringmsg.includes('급식')) {
         return '급식'
-    }
-    else if (stringmsg.startsWith('(갤러리)페이지 ')) {
-        return '갤러리N'
-    }
-    else if (stringmsg.includes('갤러리')) {
-        return '갤러리'
     }
     else if (stringmsg.includes('안녕') || stringmsg.includes('ㅎㅇ') || stringmsg.includes('안뇽') || stringmsg.includes('하이')) {
         return '안녕'
@@ -324,7 +309,7 @@ reactword = function (keymsg, msg, callback) {
     var addans = '';
     var iscallback = 0;
 
-    var makerstatement = '[개발자] \n\n이현탁 \n\n연락처 \nhttps://open.kakao.com/o/spCvvJ0';
+    var makerstatement = '[개발자] \n\n이현탁 \n\n연락처 \nhttps://open.kakao.com/o/s6aDxbmc';
     var returnstatement = '돌아왔습니다!';
     var addnewmentstatement = '[말 추가하기] \n\n자신이 원하는 대답을 들을수 있도록 할 수 있어요! \n\n~~ 라 하면 ~~ 라고 해 \n와 같이 말해주세요!';
 
@@ -439,17 +424,17 @@ reactword = function (keymsg, msg, callback) {
             answer = '욕은하지 말아주세요 ㅠㅠ'
             break;
         case '등급':
-            var ans = '챗봇 예상 등급 기능을 이용해주셔서  감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.\n\n입력된 점수는 암호화되어 보호됩니다.'
+            var ans = '챗봇 예상 등급 기능을 이용해주셔서  감사합니다\n\n챗봇 예상 등급 기능은 학생들이 입력한 점수를 기반으로 하기에 실제 등급과는 차이가 있을수 있습니다.\n\n입력된 점수는 암호화되어 보호됩니다'
             if(find_info() == 'no info'){
-                answer = '학생정보를 설정해주세요.'
+                answer = '학생정보를 설정해주세요'
                 buttons = ['학생정보 설정', '메뉴']
                 buttoncore = ['학생정보 설정', '메뉴']
             }else if (find_grade() == '1') {
                 answer = ans
-                addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n국어,수학,통합사회,통합과학,영어,역사\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
+                addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n국어,수학,통합사회,통합과학,영어,역사\n\nex)97,100,90,95,96,92\n\n미응시 과목은 0점으로 기록해주세요'
             } else if (find_grade() == '2') {
                 answer = ans
-                addans = '아래의 형식과 같이 점수를 입력해주세요.\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n입력하시지 않은 과목은 0점으로 계산됩니다.'
+                addans = '아래의 형식과 같이 점수를 입력해주세요\n\n문학,수학1,수학2,확률과 통계,물리,화학,생물,지구과학,영어\n\nex)97,100,90,95,96,92\n\n미응시 과목은 0점으로 기록해주세요'
             } else if (find_grade() == '3') {
             }
             break;
@@ -459,11 +444,6 @@ reactword = function (keymsg, msg, callback) {
                 var language, math, social, science, eng, history
                 var language_ment, math_ment, social_ment, science_ment, eng_ment, history_ment = "0";
                 score = msg.split(',')
-                for(var i = 0; i < 6; i++){
-                    if(score[i] == null){
-                        score[i] == 0;
-                    }
-                }
                 language = first_grade_language + '\n' + score[0]
                 math = first_grade_math + '\n' + score[1]
                 social = first_grade_social + '\n' + score[2]
@@ -1369,7 +1349,7 @@ reactword = function (keymsg, msg, callback) {
             buttoncore = ['메뉴', '말 추가하기']
             break;
         case '개발자에게 문의하기':
-            answer = '오픈채팅방:https://open.kakao.com/o/spCvvJ0 \n\n건의사항이나 문제점은 위 오픈채팅방으로 통해서 알려주세요!'
+            answer = '오픈채팅방: https://open.kakao.com/o/s6aDxbmc \n\n건의사항이나 문제점은 위 오픈채팅방으로 통해서 알려주세요!'
             buttons = ['메뉴 보기', '급식 정보 보기']
             buttoncore = ['메뉴 보기', '급식 정보 보기']
             break;
